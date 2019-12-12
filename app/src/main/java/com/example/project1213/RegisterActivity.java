@@ -9,10 +9,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import org.litepal.LitePal;
+import org.litepal.crud.LitePalSupport;
+import org.litepal.tablemanager.Connector;
+
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +35,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         usrN.setText(userNameInLogin);
         pasW.setText(passwordInLogin);
-        String inputEmail = email.getText().toString();
+
+        // Create database: Account.db
+        Connector.getDatabase();
 
         Button clrall = (Button) findViewById(R.id.Reg_clear_all);
         clrall.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +57,46 @@ public class RegisterActivity extends AppCompatActivity {
                 String passwordInReg = pasW.getText().toString();
                 String emailInReg = email.getText().toString();
 
+                if(userNameInReg.isEmpty() || passwordInReg.isEmpty() || emailInReg.isEmpty())
+                {
+                    Toast.makeText(RegisterActivity.this,
+                            "Please input ALL info.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                List<Account> accountList = LitePal.select("userName")
+                        .where("userName == ?", userNameInReg)
+                        .find(Account.class);
+
+                if(!accountList.isEmpty())
+                {
+                    Toast.makeText(RegisterActivity.this,
+                            "UserName has been registered.",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                Account account = new Account();
+                account.setUserName(userNameInReg);
+                account.setPassword(passwordInReg);
+                account.setEmailAddress(emailInReg);
+                account.save();
+
+
+                Intent intent_return = new Intent();
+                intent_return.putExtra("userNameFromReg", userNameInReg);
+                intent_return.putExtra("passwordFromReg", passwordInReg);
+                setResult(RESULT_OK, intent_return);
+                finish();
+
+                /*
+                List<Account> accounts = LitePal.findAll(Account.class);
+                for(Account temp:accounts)
+                {
+                    Log.d(TAG, "onClick: Usr: " + temp.getUserName());
+                    Log.d(TAG, "onClick: Psd: " + temp.getPassword());
+                    Log.d(TAG, "onClick: EA : " + temp.getEmailAddress());
+                }
+                */
             }
         });
     }
