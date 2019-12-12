@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <EditText
+        android:id="@+id/Reg_user_name"
+        android:layout_width="270dp"
+        android:layout_height="70dp"
+        android:textSize="22sp"
+        android:maxLines="1"
+        android:hint="User Name"
+        android:gravity="center"
+        android:layout_above="@id/Reg_password"
+        android:inputType="text"
+        android:layout_centerHorizontal="true"
+        />
+
+    <EditText
+        android:id="@+id/Reg_password"
+        android:layout_width="270dp"
+        android:layout_height="70dp"
+        android:textSize="22sp"
+        android:maxLines="1"
+        android:gravity="center"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_above="@id/Reg_email"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/Reg_email"
+        android:layout_width="270dp"
+        android:layout_height="70dp"
+        android:textSize="22sp"
+        android:maxLines="1"
+        android:gravity="center"
+        android:inputType="textEmailAddress"
+        android:layout_centerInParent="true"
+        android:hint="Your E-mail address"/>
+    <TextView
+        android:id="@+id/outsideblank"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/Reg_email"
+        />
+    <RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/outsideblank">
+    <Button
+        android:id="@+id/Reg_clear_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ClearAll"
+        android:layout_toLeftOf="@id/blank"/>
+    <TextView
+        android:id="@+id/blank"
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:id="@+id/Reg_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_toRightOf="@id/blank"/>
+</RelativeLayout>
+
+</RelativeLayout>
