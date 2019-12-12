@@ -12,4 +12,11 @@
         android:layout_height="wrap_content"
         android:text="LoginActivity"/>
 
+    <Button
+        android:id="@+id/to_Main2Activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Main2Activity"/>
+
+
 </LinearLayout>
