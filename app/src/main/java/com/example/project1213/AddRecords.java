@@ -108,14 +108,5 @@ public class AddRecords extends AppCompatActivity {
         });
 
     }
-
-
-
-
-
 }
 
-
-
-
-}
