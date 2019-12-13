@@ -4,16 +4,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Main2Activity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
+
+    private RadioGroup radioGroup;
+    private RadioButton find,mine;
+    private MyFragment findFragment,mineFragment;
 
     public String user_login = "";
 
@@ -66,6 +74,49 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+
+        radioGroup=(RadioGroup)findViewById(R.id.radio_group);
+        radioGroup.setOnCheckedChangeListener(this);
+
+        find=(RadioButton)findViewById(R.id.find);
+        mine=(RadioButton)findViewById(R.id.mine);
+
+        find.setChecked(true);
+    }
+
+    public void hideAllFragment(FragmentTransaction transaction){
+        if(findFragment!=null){
+            transaction.hide(findFragment);
+        }
+        if(mineFragment!=null){
+            transaction.hide(mineFragment);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group,int checkedId) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        hideAllFragment(transaction);
+        switch (checkedId){
+            case R.id.find:
+                if(findFragment==null){
+                    findFragment=new MyFragment("发现");
+                    transaction.add(R.id.fl,findFragment);
+                }else{
+                    transaction.show(findFragment);
+                }
+                break;
+            case R.id.mine:
+                    if(mineFragment==null){
+                       mineFragment=new MyFragment("我的");
+                       transaction.add(R.id.fl,mineFragment);
+                    }else{
+                        transaction.show(mineFragment);
+                    }
+                break;
+        }
+        transaction.commit();
+
         Button button_log = (Button) findViewById(R.id.to_loginActivity);
         button_log.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +125,6 @@ public class Main2Activity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
-
     }
 }
 
