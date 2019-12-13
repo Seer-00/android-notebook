@@ -2,10 +2,11 @@
 <litepal>
     <dbname value="AccountData"></dbname>
 
-    <version value="1"></version>
+    <version value="2"></version>
 
     <list>
         <mapping class="com.example.project1213.Account"></mapping>
+        <mapping class="com.example.project1213.Record"></mapping>
     </list>
 
 </litepal>

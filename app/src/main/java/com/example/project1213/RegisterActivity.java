@@ -79,14 +79,18 @@ public class RegisterActivity extends AppCompatActivity {
                 account.setUserName(userNameInReg);
                 account.setPassword(passwordInReg);
                 account.setEmailAddress(emailInReg);
-                account.save();
 
-
-                Intent intent_return = new Intent();
-                intent_return.putExtra("userNameFromReg", userNameInReg);
-                intent_return.putExtra("passwordFromReg", passwordInReg);
-                setResult(RESULT_OK, intent_return);
-                finish();
+                if(account.save()) {
+                    Intent intent_return = new Intent();
+                    intent_return.putExtra("userNameFromReg", userNameInReg);
+                    intent_return.putExtra("passwordFromReg", passwordInReg);
+                    setResult(RESULT_OK, intent_return);
+                    finish();
+                }
+                else{
+                    Toast.makeText(RegisterActivity.this,
+                            "Register FAILED for unknown reason.", Toast.LENGTH_LONG).show();
+                }
 
                 /*
                 List<Account> accounts = LitePal.findAll(Account.class);

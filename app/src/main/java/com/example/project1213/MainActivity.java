@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        /*
         Button button1 = (Button) findViewById(R.id.to_loginActivity);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        */
 
         Button button2 = (Button) findViewById(R.id.to_Main2Activity);
         button2.setOnClickListener(new View.OnClickListener() {
@@ -31,5 +32,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        /*
+        Button button3 = (Button)findViewById(R.id.to_addRecord);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddRecords.class);
+                startActivity(intent);
+            }
+        });
+        */
     }
 }

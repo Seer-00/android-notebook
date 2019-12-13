@@ -1,29 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp">
+    tools:context=".AddRecords">
 
-    <Button
-        android:id="@+id/add_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:textSize="10sp"
-        android:text="Add photo"/>
-    <EditText
-        android:id="@+id/edit_text"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:gravity="top"
-        android:hint="Type something"/>
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/use_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Use title"/>
+
+        <EditText
+            android:id="@+id/Rec_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="title"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/Rec_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <Button
-        android:id="@+id/send"
-        android:layout_width="wrap_content"
+        android:id="@+id/Rec_pic"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Send"/>
+        android:text="Add Picture"/>
 
+    <Button
+        android:id="@+id/Rec_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create"/>
 
 </LinearLayout>

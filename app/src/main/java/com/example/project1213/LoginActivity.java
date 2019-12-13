@@ -110,8 +110,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (inputPassword.equals(account.getPassword()))
                     {
-                        Toast.makeText(LoginActivity.this,"Login successfully.",
-                                Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("return_username", account.getUserName());
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
                     else
                     {
