@@ -2,12 +2,27 @@ package com.example.project1213;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Account extends LitePalSupport {
+    private int id;
+
     private String userName;
 
     private String password;
 
     private String emailAddress;
+
+    private List<Record> recordList = new ArrayList<Record>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -33,5 +48,11 @@ public class Account extends LitePalSupport {
         this.emailAddress = emailAddress;
     }
 
+    public List<Record> getRecordList() {
+        return recordList;
+    }
 
+    public void setRecordList(List<Record> recordList) {
+        this.recordList = recordList;
+    }
 }

@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".About"></activity>
         <activity android:name=".AddRecords" />
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".Main2Activity"
+            android:launchMode="singleTask"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
