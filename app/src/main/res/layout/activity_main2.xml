@@ -35,19 +35,23 @@
             android:id="@+id/find"
             android:text="find"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/tab_find"
             />
         <RadioButton
             android:id="@+id/mine"
             android:text="mine"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/tab_mine"
             />
     </RadioGroup>
 
