@@ -19,10 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!--我先改小了，不然按钮放不下，你可以再调整-->
         <EditText
             android:id="@+id/Rec_text"
             android:layout_width="300dp"
-            android:layout_height="150dp"
+            android:layout_height="50dp"
             android:gravity="top"
             android:maxLines="6"
             android:layout_gravity="center_horizontal"
@@ -58,21 +59,13 @@
 
     </LinearLayout>
 
-
-<ImageView
-    android:id="@+id/Rec_image"
-    android:layout_width="300dp"
-    android:layout_height="200dp"
-    android:layout_gravity="center_horizontal"
-    android:src="@color/colorPrimary"
-    />
-    <!--<Button
-        android:id="@+id/Rec_pic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Picture"
+    <ImageView
+        android:id="@+id/Rec_image"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:visibility="invisible"/>-->
+        android:src="@color/colorPrimary"
+    />
 
     <Button
         android:id="@+id/Rec_create"
@@ -80,5 +73,36 @@
         android:layout_height="wrap_content"
         android:text="Create"
         android:layout_gravity="center_horizontal"/>
+
+    <!-- choose a picture-->
+    <Button
+        android:id="@+id/Rec_choose_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Picture"
+        />
+
+    <!-- take a photo-->
+    <Button
+        android:id="@+id/Rec_take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Photo" />
+
+    <!-- show the picture you just got-->
+    <ImageView
+        android:id="@+id/picture"
+        android:adjustViewBounds="true"
+        android:maxHeight="120dp"
+        android:maxWidth="120dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/Rec_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Location"/>
 
 </LinearLayout>

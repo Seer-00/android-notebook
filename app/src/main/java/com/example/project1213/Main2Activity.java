@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import android.widget.RadioButton;
@@ -19,13 +20,15 @@ import android.widget.Toast;
 
 public class Main2Activity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
 
+    private static final String TAG = "Main2Activity";
+
     private RadioGroup radioGroup;
     private RadioButton find,mine;
     private MyFragment mineFragment;
     private FindFragment findFragment;
 
     // 判断是否已登录，若user_login 不为空，则已登录
-    public String user_login = "a";
+    public String user_login = "";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -39,7 +42,6 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
-
             default:
                 break;
         }
@@ -59,7 +61,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                     case R.id.add:
                         if(user_login.isEmpty())
                         {
-                            Toast.makeText(Main2Activity.this, "You should login first",
+                            Toast.makeText(Main2Activity.this, "Please login first",
                                     Toast.LENGTH_LONG).show();
                         }
                         else
@@ -114,7 +116,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                         transaction.add(R.id.fl,mineFragment);
 
                     }else{
-                        /*if(user_login.isEmpty())
+                        if(user_login.isEmpty())
                         {
                             Button log_in=(Button)findViewById(R.id.login_button);
                             log_in.setVisibility(View.VISIBLE);
@@ -123,13 +125,41 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                         {
                             Button log_in=(Button)findViewById(R.id.login_button);
                             log_in.setVisibility(View.INVISIBLE);
-                        }*/
+                        }
                         mineFragment.checkLoginButton(user_login);
                         transaction.show(mineFragment);
                     }
                 break;
         }
         transaction.commit();
+
+
+        Button button_log = (Button) findViewById(R.id.to_loginActivity);
+        button_log.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Main2Activity.this, LoginActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        Button button_test = (Button) findViewById(R.id.test_database);
+        button_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(user_login.isEmpty())
+                {
+                    Toast.makeText(Main2Activity.this, "Please login first",
+                            Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(Main2Activity.this, testDatabase.class);
+                    intent.putExtra("test_user", user_login);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
 
