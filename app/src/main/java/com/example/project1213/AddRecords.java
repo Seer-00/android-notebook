@@ -1,11 +1,13 @@
 package com.example.project1213;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -39,7 +41,7 @@ public class AddRecords extends AppCompatActivity {
 
         final EditText record_text = (EditText)findViewById(R.id.Rec_text);
         final EditText record_title = (EditText)findViewById(R.id.Rec_title);
-        Button record_pic = (Button)findViewById(R.id.Rec_pic);
+        //Button record_pic = (Button)findViewById(R.id.Rec_pic);
         Button record_create = (Button)findViewById(R.id.Rec_create);
         final CheckBox use_title = (CheckBox)findViewById(R.id.use_title);
 
@@ -56,13 +58,13 @@ public class AddRecords extends AppCompatActivity {
                 }
             }
         });
-
+/*
         record_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
 
         record_create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,13 +109,36 @@ public class AddRecords extends AppCompatActivity {
             }
         });
 
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle("Traveller");
+        toolbar.inflateMenu(R.menu.operation);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.add:
+                        if(user_login.isEmpty())
+                        {
+                            Toast.makeText(AddRecords.this, "You should login first",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        else;
+                        /*{
+                            Intent intent = new Intent(Main2Activity.this,AddRecords.class);
+                            intent.putExtra("user_login", user_login);
+                            startActivity(intent);
+                        }*/
+                        break;
+                    case R.id.about:
+                        startActivity(new Intent(AddRecords.this,About.class));
+                }
+                return true;
+            }
+        });
+
+
     }
 
-
-
-
-
-}
 
 
 

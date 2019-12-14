@@ -6,49 +6,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddRecords">
-
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/toolbar"
+        android:theme="@style/myTheme"
+        app:title="Traveller"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        ></androidx.appcompat.widget.Toolbar>
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <CheckBox
-            android:id="@+id/use_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/Rec_text"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:gravity="top"
+            android:maxLines="6"
+            android:layout_gravity="center_horizontal"
             />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tab_use_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Use title"
+        android:layout_centerInParent="true"/>
+    <CheckBox
+        android:id="@+id/use_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/tab_use_title"
+        />
+</RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Use title"/>
 
         <EditText
             android:id="@+id/Rec_title"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="title"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:maxLines="1"
+            android:inputType="text"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/Rec_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
 
-    <Button
+<ImageView
+    android:id="@+id/Rec_image"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:layout_gravity="center_horizontal"
+    android:src="@color/colorPrimary"
+    />
+    <!--<Button
         android:id="@+id/Rec_pic"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Picture"/>
+        android:text="Add Picture"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"/>-->
 
     <Button
         android:id="@+id/Rec_create"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"/>
+        android:text="Create"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

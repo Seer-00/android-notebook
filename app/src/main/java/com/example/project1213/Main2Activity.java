@@ -21,9 +21,11 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
 
     private RadioGroup radioGroup;
     private RadioButton find,mine;
-    private MyFragment findFragment,mineFragment;
+    private MyFragment mineFragment;
+    private FindFragment findFragment;
 
-    public String user_login = "";
+    // 判断是否已登录，若user_login 不为空，则已登录
+    public String user_login = "a";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -100,7 +102,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
         switch (checkedId){
             case R.id.find:
                 if(findFragment==null){
-                    findFragment=new MyFragment("发现");
+                    findFragment=new FindFragment("发现");
                     transaction.add(R.id.fl,findFragment);
                 }else{
                     transaction.show(findFragment);
@@ -109,22 +111,25 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
             case R.id.mine:
                     if(mineFragment==null){
                        mineFragment=new MyFragment("我的");
-                       transaction.add(R.id.fl,mineFragment);
+                        transaction.add(R.id.fl,mineFragment);
+
                     }else{
+                        /*if(user_login.isEmpty())
+                        {
+                            Button log_in=(Button)findViewById(R.id.login_button);
+                            log_in.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            Button log_in=(Button)findViewById(R.id.login_button);
+                            log_in.setVisibility(View.INVISIBLE);
+                        }*/
+                        mineFragment.checkLoginButton(user_login);
                         transaction.show(mineFragment);
                     }
                 break;
         }
         transaction.commit();
-
-        Button button_log = (Button) findViewById(R.id.to_loginActivity);
-        button_log.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Main2Activity.this, LoginActivity.class);
-                startActivityForResult(intent, 1);
-            }
-        });
     }
 }
 
