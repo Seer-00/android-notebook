@@ -96,7 +96,7 @@ public class AddRecords extends AppCompatActivity {
         });
 
         // Button of take a Photo
-        Button take_photo = (Button) findViewById(R.id.take_photo);
+        Button take_photo = (Button) findViewById(R.id.Rec_take_photo);
         picture = (ImageView) findViewById(R.id.picture);
         take_photo.setOnClickListener(new View.OnClickListener() {
             @Override
