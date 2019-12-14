@@ -6,7 +6,37 @@ public class Record extends LitePalSupport {
 
     private int id;
 
+    private String recordTitle;
+
     private String recordText;
+
+    private byte[] recordImage;
+
+    public byte[] getRecordImage() {
+        return recordImage;
+    }
+
+    public void setRecordImage(byte[] recordImage) {
+        this.recordImage = recordImage;
+    }
+
+    public String getRecordTitle() {
+        return recordTitle;
+    }
+
+    public void setRecordTitle(String recordTitle) {
+        this.recordTitle = recordTitle;
+    }
+
+    public String getRecordDate() {
+        return recordDate;
+    }
+
+    public void setRecordDate(String recordDate) {
+        this.recordDate = recordDate;
+    }
+
+    private String recordDate;
 
     private Account account;
 

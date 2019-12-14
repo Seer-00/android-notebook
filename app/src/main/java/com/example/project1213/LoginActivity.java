@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(accountList.isEmpty())
                 {
-                    Toast.makeText(LoginActivity.this, "User: " + inputUserName + " isn't exist.",
+                    Toast.makeText(LoginActivity.this, "User: " + inputUserName + " doesn't exist.",
                             Toast.LENGTH_LONG).show();
                 }
                 else
@@ -97,9 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     Account account = accountList.get(0);
-                    Log.d(TAG, "onClick: User: " + account.getUserName());
-                    Log.d(TAG, "onClick: Pswd: " + account.getPassword());
 
+                    /* 输出所有的 Account信息
                     List<Account> accounts = LitePal.findAll(Account.class);
                     for(Account temp:accounts)
                     {
@@ -107,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d(TAG, "onClick: Psd: " + temp.getPassword());
                         Log.d(TAG, "onClick: EA : " + temp.getEmailAddress());
                     }
+                    */
 
                     if (inputPassword.equals(account.getPassword()))
                     {

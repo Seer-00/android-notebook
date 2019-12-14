@@ -56,4 +56,16 @@
             />
     </RadioGroup>
 
+    <Button
+        android:id="@+id/to_loginActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LoginActivity"/>
+
+    <Button
+        android:id="@+id/test_database"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Database"/>
+
 </LinearLayout>
