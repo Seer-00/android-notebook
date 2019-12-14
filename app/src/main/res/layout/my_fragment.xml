@@ -6,11 +6,22 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="20sp"
         android:gravity="center"
         android:text="呵呵"/>
         <!--android:textColor="@color/text_blue"-->
-
+    <!--<ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />-->
+<Button
+    android:id="@+id/login_button"
+    android:text="Log in"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:visibility="visible"/>
 
 </LinearLayout>
