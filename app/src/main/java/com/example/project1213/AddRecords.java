@@ -108,7 +108,7 @@ public class AddRecords extends AppCompatActivity {
                 }
             }
         });
-
+      
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle("Traveller");
         toolbar.inflateMenu(R.menu.operation);
@@ -123,11 +123,11 @@ public class AddRecords extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
                         }
                         else;
-                        /*{
+                        {
                             Intent intent = new Intent(Main2Activity.this,AddRecords.class);
                             intent.putExtra("user_login", user_login);
                             startActivity(intent);
-                        }*/
+                        }
                         break;
                     case R.id.about:
                         startActivity(new Intent(AddRecords.this,About.class));
@@ -140,7 +140,6 @@ public class AddRecords extends AppCompatActivity {
     }
 
 
-
-
-
+    }
 }
+
