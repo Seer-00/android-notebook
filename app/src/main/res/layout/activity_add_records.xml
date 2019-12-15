@@ -85,6 +85,14 @@
                 android:layout_width="100dp"
                 android:layout_height="34dp"
                 android:background="@drawable/location" />
+            <Button
+                android:id="@+id/Rec_clear_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear Location"
+                android:visibility="gone"
+                />
+
         </LinearLayout>
 
         <ImageView
@@ -153,27 +161,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/Rec_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get Location"/>
-
-        <Button
-            android:id="@+id/Rec_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show Map"
-            android:visibility="invisible"/>
-
-
-    </LinearLayout>
-
 
     <TextView
         android:id="@+id/Rec_show_location"

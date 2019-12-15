@@ -58,6 +58,7 @@ public class AddRecords extends AppCompatActivity {
 
     private ImageView picture;
     private Uri imageUri;
+    private String location;
     private boolean getImage = false;
     private boolean getLocation = false;
 
@@ -78,8 +79,8 @@ public class AddRecords extends AppCompatActivity {
         final EditText record_title = (EditText) findViewById(R.id.Rec_title);
         Button record_choose_pic = (Button) findViewById(R.id.Rec_choose_pic);
         Button record_create = (Button) findViewById(R.id.Rec_create);
-        Button record_location = (Button) findViewById(R.id.Rec_location);
-        final Button show_map = (Button) findViewById(R.id.Rec_map);
+        final Button record_location = (Button) findViewById(R.id.Rec_location);
+        final Button record_clear_location = (Button) findViewById(R.id.Rec_clear_location);
         record_show_loc = (TextView) findViewById(R.id.Rec_show_location);
         final CheckBox use_title = (CheckBox) findViewById(R.id.use_title);
 
@@ -118,20 +119,36 @@ public class AddRecords extends AppCompatActivity {
                 if (!permissionList.isEmpty()) {
                     String [] permissions = permissionList.toArray(new String[permissionList.size()]);
                     ActivityCompat.requestPermissions(AddRecords.this, permissions, 2);
+                    getLocation = true;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            record_location.setVisibility(View.GONE);
+                            record_clear_location.setVisibility(View.VISIBLE);
+                        }
+                    }, 1500);
                 } else {
                     requestLocation();
                     getLocation = true;
-                    show_map.setVisibility(View.VISIBLE);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            record_location.setVisibility(View.GONE);
+                            record_clear_location.setVisibility(View.VISIBLE);
+                        }
+                    }, 500);
                 }
             }
         });
 
-        // Button of show map
-        show_map.setOnClickListener(new View.OnClickListener() {
+        // Button of clear Location
+        record_clear_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(AddRecords.this, showMap.class);
-                startActivity(intent1);
+                location = "";
+                record_show_loc.setText(location);
             }
         });
 
@@ -191,8 +208,7 @@ public class AddRecords extends AppCompatActivity {
                 String text = record_text.getText().toString();
                 String title = record_title.getText().toString();
 
-                // should add location judge
-                if (text.isEmpty() && title.isEmpty() && !getImage) {
+                if (text.isEmpty() && title.isEmpty() && !getImage && !getLocation) {
                     Toast.makeText(AddRecords.this, "Not allowed to be ALL EMPTY.",
                             Toast.LENGTH_SHORT).show();
                     return;
@@ -202,6 +218,9 @@ public class AddRecords extends AppCompatActivity {
                 record.setRecordText(text);
                 record.setRecordTitle(title);
                 record.setRecordDate(date);
+                if(getLocation){
+                    record.setRecordLocation(location);
+                }
                 if(getImage) {
                     picture.setDrawingCacheEnabled(true);
                     Bitmap bitmap = picture.getDrawingCache();
@@ -384,32 +403,35 @@ public class AddRecords extends AppCompatActivity {
 
     private void initLocation(){
         LocationClientOption option = new LocationClientOption();
-        option.setScanSpan(5000);
+//        option.setScanSpan(50000);
         option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
     }
 
     public class MyLocationListener implements BDLocationListener {
         @Override
-        public void onReceiveLocation(final BDLocation location) {
+        public void onReceiveLocation(final BDLocation loc) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     StringBuilder currentPosition = new StringBuilder();
-                    currentPosition.append("纬度：").append(location.getLatitude()).append("\n");
-                    currentPosition.append("经线：").append(location.getLongitude()).append("\n");
-                    currentPosition.append("国家：").append(location.getCountry()).append("\n");
-                    currentPosition.append("省：").append(location.getProvince()).append("\n");
-                    currentPosition.append("市：").append(location.getCity()).append("\n");
-                    currentPosition.append("区：").append(location.getDistrict()).append("\n");
-                    currentPosition.append("街道：").append(location.getStreet()).append("\n");
+                    //currentPosition.append("纬度：").append(location.getLatitude()).append("\n");
+                    //currentPosition.append("经线：").append(location.getLongitude()).append("\n");
+                    //currentPosition.append("国家：").append(location.getCountry()).append("\n");
+                    currentPosition.append(loc.getProvince()).append(" ");
+                    currentPosition.append(loc.getCity()).append(" ");
+                    currentPosition.append(loc.getDistrict()).append(" ");
+                    currentPosition.append(loc.getStreet()).append(" ");
+                    /*
                     currentPosition.append("定位方式：");
                     if (location.getLocType() == BDLocation.TypeGpsLocation) {
                         currentPosition.append("GPS");
                     } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
                         currentPosition.append("网络");
                     }
+                    */
                     record_show_loc.setText(currentPosition);
+                    location += currentPosition;
                 }
             });
         }

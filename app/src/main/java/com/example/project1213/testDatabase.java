@@ -32,8 +32,6 @@ public class testDatabase extends AppCompatActivity {
         Intent intent = getIntent();
         String user_login = intent.getStringExtra("test_user");
 
-        Connector.getDatabase();
-
         List<Account> accountList = LitePal.where("userName == ?", user_login)
                 .find(Account.class, true);
 
@@ -60,6 +58,10 @@ public class testDatabase extends AppCompatActivity {
         // show Date
         TextView date = (TextView) findViewById(R.id.test_date);
         date.setText(record.getRecordDate());
+
+        // show Location
+        TextView loc = (TextView) findViewById(R.id.test_loca);
+        loc.setText(record.getRecordLocation());
 
         // show Picture
         ImageView image = (ImageView) findViewById(R.id.test_image);
