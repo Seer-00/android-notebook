@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +18,7 @@ import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
 import org.litepal.tablemanager.Connector;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -39,8 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
         // Create database: Account.db
         Connector.getDatabase();
 
-        Button clrall = (Button) findViewById(R.id.Reg_clear_all);
-        clrall.setOnClickListener(new View.OnClickListener() {
+        Button clc = (Button) findViewById(R.id.Reg_clear_all);
+        clc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 usrN.setText("");
@@ -75,10 +79,21 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
+                Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot)).getBitmap();
+
+                byte[] im = img(mBitmap);
+                if (im.length == 0) {
+                    Log.d(TAG, "onCreate: Image is NULL");
+                }
+                else{
+                    Log.d(TAG, "onCreate: Image is NOT NULL " + im.length);
+                }
+
                 Account account = new Account();
                 account.setUserName(userNameInReg);
                 account.setPassword(passwordInReg);
                 account.setEmailAddress(emailInReg);
+                account.setUserImage(im);
 
                 if(account.save()) {
                     Intent intent_return = new Intent();
@@ -91,17 +106,13 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,
                             "Register FAILED for unknown reason.", Toast.LENGTH_LONG).show();
                 }
-
-                /*
-                List<Account> accounts = LitePal.findAll(Account.class);
-                for(Account temp:accounts)
-                {
-                    Log.d(TAG, "onClick: Usr: " + temp.getUserName());
-                    Log.d(TAG, "onClick: Psd: " + temp.getPassword());
-                    Log.d(TAG, "onClick: EA : " + temp.getEmailAddress());
-                }
-                */
             }
         });
+    }
+
+    private byte[]img(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
     }
 }

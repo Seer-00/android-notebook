@@ -99,10 +99,30 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:id="@+id/Rec_location"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/Rec_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Location"/>
+
+        <Button
+            android:id="@+id/Rec_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Map"
+            android:visibility="invisible"/>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/Rec_show_location"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get Location"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

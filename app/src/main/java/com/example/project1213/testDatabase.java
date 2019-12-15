@@ -37,7 +37,7 @@ public class testDatabase extends AppCompatActivity {
         List<Account> accountList = LitePal.where("userName == ?", user_login)
                 .find(Account.class, true);
 
-        // 得到 user_login 对应的account
+        // 得到 user_login 对应的 account
         Account account = accountList.get(0);
 
         List<Record> recordList = account.getRecordList();
@@ -71,6 +71,18 @@ public class testDatabase extends AppCompatActivity {
             Log.d(TAG, "onCreate: Image is NOT NULL");
             Bitmap bitmap = BitmapFactory.decodeByteArray(im, 0, im.length);
             image.setImageBitmap(bitmap);
+        }
+
+        // show User Image
+        ImageView usr_img = (ImageView)findViewById(R.id.test_user_image);
+        byte[] urim = account.getUserImage();
+        if (urim == null) {
+            Log.d(TAG, "onCreate: User Image is NULL");
+        }
+        else{
+            Log.d(TAG, "onCreate: User Image is NOT NULL " + urim.length);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(urim, 0, urim.length);
+            usr_img.setImageBitmap(bitmap);
         }
     }
 }
