@@ -8,7 +8,6 @@
     android:layout_height="wrap_content">
     <Button
         android:id="@+id/head"
-        android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/tab_find"
@@ -18,17 +17,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="呵呵"
+        android:text="请登录"
         android:layout_gravity="center_vertical"
         android:gravity="center_horizontal"
         android:layout_weight="1"/>
-    <Button
-        android:id="@+id/login_button"
-        android:text="Log in"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/my_textView1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="visible"/>
+        android:textSize="20sp"
+        android:text="用户名"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:layout_weight="1"
+        android:visibility="invisible"/>
+    />
 
 </LinearLayout>
 

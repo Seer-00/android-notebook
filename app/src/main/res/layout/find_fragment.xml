@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:gravity="center"
-        android:text="呵呵"/>
+        android:text=""/>
     <ListView
         android:id="@+id/find_listview"
         android:layout_width="match_parent"

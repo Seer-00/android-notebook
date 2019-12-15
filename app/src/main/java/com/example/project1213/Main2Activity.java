@@ -51,7 +51,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
     private FindFragment findFragment;
 
     // 判断是否已登录，若user_login 不为空，则已登录
-    public String user_login = "admin";
+    public String user_login = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,14 +145,8 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                     transaction.add(R.id.fl, mineFragment);
 
                 } else {
-                    if (user_login.isEmpty()) {
-                        Button log_in = (Button) findViewById(R.id.login_button);
-                        log_in.setVisibility(View.VISIBLE);
-                    } else {
-                        Button log_in = (Button) findViewById(R.id.login_button);
-                        log_in.setVisibility(View.INVISIBLE);
-                    }
-                    mineFragment.checkLoginButton(user_login);
+
+
                     transaction.show(mineFragment);
                 }
                 break;
@@ -210,6 +204,18 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                     user_login = data.getStringExtra("return_username");
                     Toast.makeText(Main2Activity.this, "Login successfully.",
                             Toast.LENGTH_SHORT).show();
+                    if (user_login.isEmpty()) {
+                        TextView obj=(TextView)findViewById(R.id.my_textView);
+                        obj.setVisibility(View.VISIBLE);
+                        TextView obj2=(TextView)findViewById(R.id.my_textView1);
+                        obj2.setVisibility(View.INVISIBLE);
+                    } else {
+                        TextView obj1=(TextView)findViewById(R.id.my_textView);
+                        obj1.setVisibility(View.INVISIBLE);
+                        TextView obj2=(TextView)findViewById(R.id.my_textView1);
+                        obj2.setVisibility(View.VISIBLE);
+                    }
+                    mineFragment.checkLoginButton(user_login);
                 }
                 break;
             case CHOOSE_PICTURE:
