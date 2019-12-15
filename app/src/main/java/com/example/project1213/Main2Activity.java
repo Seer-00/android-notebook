@@ -74,8 +74,34 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                             startActivity(intent);
                         }
                         break;
+                    case R.id.tuniu:
+                        Intent intent1 = new Intent(Main2Activity.this,WebView.class);
+                        intent1.putExtra("website_address", "https://www.tuniu.com");
+                        intent1.putExtra("website_name","途牛旅游网");
+                        startActivity(intent1);
+                        break;
+                    case R.id.xiecheng:
+                        Intent intent2 = new Intent(Main2Activity.this,WebView.class);
+                        intent2.putExtra("website_address", "https://hotels.ctrip.com");
+                        intent2.putExtra("website_name","携程");
+                        startActivity(intent2);
+                        break;
+                    case R.id.qunaer:
+                        Intent intent3 = new Intent(Main2Activity.this,WebView.class);
+                        intent3.putExtra("website_address", "https://www.qunar.com");
+                        intent3.putExtra("website_name","去哪儿网");
+                        startActivity(intent3);
+                        break;
+                    case R.id.mafengwo:
+                        Intent intent5 = new Intent(Main2Activity.this,WebView.class);
+                        intent5.putExtra("website_address", "https://www.mafengwo.cn");
+                        intent5.putExtra("website_name","马蜂窝");
+                        startActivity(intent5);
+                        break;
+
                     case R.id.about:
                         startActivity(new Intent(Main2Activity.this, About.class));
+                        break;
                 }
                 return true;
             }
