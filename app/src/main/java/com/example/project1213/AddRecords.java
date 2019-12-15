@@ -30,7 +30,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 
 import org.litepal.LitePal;
 
@@ -39,6 +45,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,9 +55,15 @@ public class AddRecords extends AppCompatActivity {
 
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PICTURE = 2;
+
     private ImageView picture;
     private Uri imageUri;
     private boolean getImage = false;
+    private boolean getLocation = false;
+
+    public TextView record_show_loc;
+
+    public LocationClient mLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +78,9 @@ public class AddRecords extends AppCompatActivity {
         final EditText record_title = (EditText) findViewById(R.id.Rec_title);
         Button record_choose_pic = (Button) findViewById(R.id.Rec_choose_pic);
         Button record_create = (Button) findViewById(R.id.Rec_create);
+        Button record_location = (Button) findViewById(R.id.Rec_location);
+        final Button show_map = (Button) findViewById(R.id.Rec_map);
+        record_show_loc = (TextView) findViewById(R.id.Rec_show_location);
         final CheckBox use_title = (CheckBox) findViewById(R.id.use_title);
 
         // checkBox of use_title
@@ -79,6 +95,45 @@ public class AddRecords extends AppCompatActivity {
             }
         });
 
+        // Button of get location
+        record_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLocationClient = new LocationClient(getApplicationContext());
+                mLocationClient.registerLocationListener(new MyLocationListener());
+
+                List<String> permissionList = new ArrayList<>();
+                if (ContextCompat.checkSelfPermission(AddRecords.this, Manifest.
+                        permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+                    permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+                }
+                if (ContextCompat.checkSelfPermission(AddRecords.this, Manifest.
+                        permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    permissionList.add(Manifest.permission.READ_PHONE_STATE);
+                }
+                if (ContextCompat.checkSelfPermission(AddRecords.this, Manifest.
+                        permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                    permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
+                if (!permissionList.isEmpty()) {
+                    String [] permissions = permissionList.toArray(new String[permissionList.size()]);
+                    ActivityCompat.requestPermissions(AddRecords.this, permissions, 2);
+                } else {
+                    requestLocation();
+                    getLocation = true;
+                    show_map.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        // Button of show map
+        show_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(AddRecords.this, showMap.class);
+                startActivity(intent1);
+            }
+        });
 
         // Button of choose a Picture
         record_choose_pic.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +157,7 @@ public class AddRecords extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Create a File Object to store the photo
-                File outputImage = new File(getExternalCacheDir(),
-                        "output_image.jpg");
+                File outputImage = new File(getExternalCacheDir(), "output_image.jpg");
                 try {
                     if (outputImage.exists()) {
                         outputImage.delete();
@@ -170,7 +224,6 @@ public class AddRecords extends AppCompatActivity {
 
                 Account account = accountList.get(0);
                 account.getRecordList().add(record);
-                Log.d(TAG, "onClick: " + account.getRecordList().size());
                 boolean account_upgrade = account.save();
 
                 if (record_save && account_upgrade) {
@@ -217,12 +270,6 @@ public class AddRecords extends AppCompatActivity {
         }
     }
 
-    private void openAlbum() {
-        Intent intent = new Intent("android.intent.action.GET_CONTENT");
-        intent.setType("image/*");
-        startActivityForResult(intent, CHOOSE_PICTURE);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -232,6 +279,22 @@ public class AddRecords extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "You denied the permission",
                             Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 2:
+                if (grantResults.length > 0) {
+                    for (int result : grantResults) {
+                        if (result != PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(this, "You denied the permission",
+                                    Toast.LENGTH_SHORT).show();
+                            finish();
+                            return;
+                        }
+                    }
+                    requestLocation();
+                } else {
+                    Toast.makeText(this, "Unknown Error", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 break;
             default:
@@ -294,10 +357,66 @@ public class AddRecords extends AppCompatActivity {
         }
     }
 
+    private void openAlbum() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        startActivityForResult(intent, CHOOSE_PICTURE);
+    }
+
     private byte[] img(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
     }
-}
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (getLocation) {
+            mLocationClient.stop();
+        }
+    }
+
+    private void requestLocation() {
+        initLocation();
+        mLocationClient.start();
+    }
+
+    private void initLocation(){
+        LocationClientOption option = new LocationClientOption();
+        option.setScanSpan(5000);
+        option.setIsNeedAddress(true);
+        mLocationClient.setLocOption(option);
+    }
+
+    public class MyLocationListener implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(final BDLocation location) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    StringBuilder currentPosition = new StringBuilder();
+                    currentPosition.append("纬度：").append(location.getLatitude()).append("\n");
+                    currentPosition.append("经线：").append(location.getLongitude()).append("\n");
+                    currentPosition.append("国家：").append(location.getCountry()).append("\n");
+                    currentPosition.append("省：").append(location.getProvince()).append("\n");
+                    currentPosition.append("市：").append(location.getCity()).append("\n");
+                    currentPosition.append("区：").append(location.getDistrict()).append("\n");
+                    currentPosition.append("街道：").append(location.getStreet()).append("\n");
+                    currentPosition.append("定位方式：");
+                    if (location.getLocType() == BDLocation.TypeGpsLocation) {
+                        currentPosition.append("GPS");
+                    } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                        currentPosition.append("网络");
+                    }
+                    record_show_loc.setText(currentPosition);
+                }
+            });
+        }
+        /*
+        @Override
+        public void onConnectHotSpotMessage(String s, int i) {
+        }
+        */
+    }
+}

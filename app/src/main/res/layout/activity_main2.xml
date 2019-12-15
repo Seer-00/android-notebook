@@ -57,16 +57,30 @@
             />
     </RadioGroup>
 
-    <Button
-        android:id="@+id/to_loginActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LoginActivity"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/test_database"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test Database"/>
+        <Button
+            android:id="@+id/to_loginActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LoginActivity"/>
+
+        <Button
+            android:id="@+id/test_database"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Database"/>
+
+        <Button
+            android:id="@+id/change_user_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change avatar"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -14,6 +14,8 @@ public class Account extends LitePalSupport {
 
     private String emailAddress;
 
+    private byte[] userImage;
+
     private List<Record> recordList = new ArrayList<Record>();
 
     public int getId() {
@@ -46,6 +48,14 @@ public class Account extends LitePalSupport {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public byte[] getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(byte[] userImage) {
+        this.userImage = userImage;
     }
 
     public List<Record> getRecordList() {

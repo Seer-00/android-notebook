@@ -10,33 +10,9 @@ public class Record extends LitePalSupport {
 
     private String recordText;
 
-    private byte[] recordImage;
-
-    public byte[] getRecordImage() {
-        return recordImage;
-    }
-
-    public void setRecordImage(byte[] recordImage) {
-        this.recordImage = recordImage;
-    }
-
-    public String getRecordTitle() {
-        return recordTitle;
-    }
-
-    public void setRecordTitle(String recordTitle) {
-        this.recordTitle = recordTitle;
-    }
-
-    public String getRecordDate() {
-        return recordDate;
-    }
-
-    public void setRecordDate(String recordDate) {
-        this.recordDate = recordDate;
-    }
-
     private String recordDate;
+
+    private byte[] recordImage;
 
     private Account account;
 
@@ -48,12 +24,36 @@ public class Record extends LitePalSupport {
         this.id = id;
     }
 
+    public String getRecordTitle() {
+        return recordTitle;
+    }
+
+    public void setRecordTitle(String recordTitle) {
+        this.recordTitle = recordTitle;
+    }
+
     public String getRecordText() {
         return recordText;
     }
 
     public void setRecordText(String recordText) {
         this.recordText = recordText;
+    }
+
+    public String getRecordDate() {
+        return recordDate;
+    }
+
+    public void setRecordDate(String recordDate) {
+        this.recordDate = recordDate;
+    }
+
+    public byte[] getRecordImage() {
+        return recordImage;
+    }
+
+    public void setRecordImage(byte[] recordImage) {
+        this.recordImage = recordImage;
     }
 
     public Account getAccount() {
