@@ -12,6 +12,8 @@ public class Record extends LitePalSupport {
 
     private String recordDate;
 
+    private String recordLocation;
+
     private byte[] recordImage;
 
     private Account account;
@@ -42,6 +44,14 @@ public class Record extends LitePalSupport {
 
     public String getRecordDate() {
         return recordDate;
+    }
+
+    public String getRecordLocation() {
+        return recordLocation;
+    }
+
+    public void setRecordLocation(String recordLocation) {
+        this.recordLocation = recordLocation;
     }
 
     public void setRecordDate(String recordDate) {

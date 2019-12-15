@@ -40,9 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
         usrN.setText(userNameInLogin);
         pasW.setText(passwordInLogin);
 
-        // Create database: Account.db
-        Connector.getDatabase();
-
         Button clc = (Button) findViewById(R.id.Reg_clear_all);
         clc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
                 email.setText("");
             }
         });
+
+        // Create database: Account.db
+        Connector.getDatabase();
 
         Button sub = (Button) findViewById(R.id.Reg_submit);
         sub.setOnClickListener(new View.OnClickListener() {
