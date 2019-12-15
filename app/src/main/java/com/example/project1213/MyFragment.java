@@ -33,7 +33,7 @@ public class MyFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Button log_in=(Button)getActivity().findViewById(R.id.login_button);
+        Button log_in=(Button)getActivity().findViewById(R.id.to_loginActivity);
         log_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +44,7 @@ public class MyFragment extends Fragment {
     }
 
     public void checkLoginButton(String name){
-        Button log_in=(Button)getActivity().findViewById(R.id.login_button);
+        Button log_in=(Button)getActivity().findViewById(R.id.to_loginActivity);
         Button head=(Button)getActivity().findViewById(R.id.head);
         if(name.isEmpty()) {
             log_in.setVisibility(View.VISIBLE);
