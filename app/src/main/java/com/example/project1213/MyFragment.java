@@ -24,8 +24,8 @@ public class MyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_fragment,container,false);
-        mTextView = (TextView)view.findViewById(R.id.textView);
-        mTextView.setText(context);
+        //mTextView = (TextView)view.findViewById(R.id.my_textView);
+        //mTextView.setText(context);
 
         return view;
     }
@@ -45,10 +45,15 @@ public class MyFragment extends Fragment {
 
     public void checkLoginButton(String name){
         Button log_in=(Button)getActivity().findViewById(R.id.login_button);
-        if(name.isEmpty())
+        Button head=(Button)getActivity().findViewById(R.id.head);
+        if(name.isEmpty()) {
             log_in.setVisibility(View.VISIBLE);
-        else
+            head.setVisibility(View.INVISIBLE);
+        }
+        else{
             log_in.setVisibility(View.INVISIBLE);
+            head.setVisibility(View.VISIBLE);
+        }
     }
 
 

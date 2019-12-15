@@ -2,26 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/head"
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/tab_find"
+        android:visibility="invisible"/>
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/my_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:gravity="center"
-        android:text="呵呵"/>
+        android:text="呵呵"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/login_button"
+        android:text="Log in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible"/>
+
+</LinearLayout>
+
+    <ListView
+        android:id="@+id/my_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </ListView>
         <!--android:textColor="@color/text_blue"-->
     <!--<ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />-->
-<Button
-    android:id="@+id/login_button"
-    android:text="Log in"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:visibility="visible"/>
 
 </LinearLayout>

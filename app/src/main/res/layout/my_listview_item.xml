@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<TextView
+    android:text=""
+    android:id="@+id/my_listview_blank"
+    android:layout_width="1dp"
+    android:layout_height="50dp"/>
+    <TextView
+        android:text="title"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_listview_title"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@+id/my_listview_blank"
+        android:layout_toEndOf="@+id/my_listview_blank"
+        android:textSize="14sp"
+        android:maxLines="1"
+        >
+    </TextView>
+    <TextView
+        android:text="summary"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_listview_summary"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/my_listview_title"
+        android:layout_toRightOf="@+id/my_listview_blank"
+        android:layout_toEndOf="@+id/my_listview_blank"
+        android:textSize="12sp"
+        android:singleLine="true"
+        android:maxLines="1"
+        >
+    </TextView>
+    <TextView
+        android:text="date"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_listview_date"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"
+        >
+    </TextView>
+
+
+</RelativeLayout>

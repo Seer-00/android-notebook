@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 public class FindFragment extends Fragment {
 
     private String context;
-    private TextView mTextView;
+    //private TextView mTextView;
 
     public FindFragment(String context){
         this.context = context;
@@ -22,8 +22,8 @@ public class FindFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.find_fragment,container,false);
-        mTextView = (TextView)view.findViewById(R.id.find_textView);
-        mTextView.setText(context);
+        //mTextView = (TextView)view.findViewById(R.id.find_textView);
+        //mTextView.setText(context);
         return view;
     }
 

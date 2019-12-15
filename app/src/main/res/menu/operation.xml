@@ -12,6 +12,26 @@
                 app:showAsAction="never">
             </item>
             <item
+                android:title="途牛旅游网"
+                android:id="@+id/tuniu"
+                app:showAsAction="never"
+                ></item>
+            <item
+                android:title="携程"
+                android:id="@+id/xiecheng"
+                app:showAsAction="never"
+                ></item>
+            <item
+                android:title="去哪儿"
+                android:id="@+id/qunaer"
+                app:showAsAction="never"
+                ></item>
+            <item
+                android:title="马蜂窝"
+                android:id="@+id/mafengwo"
+                app:showAsAction="never"
+                ></item>
+            <item
                 android:title="关于"
                 android:id="@+id/about"
                 app:showAsAction="never">
