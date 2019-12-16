@@ -23,5 +23,5 @@ public class ListViewAdapter extends ArrayAdapter<Map>{
         View view = LayoutInflater.from(getContext()).inflate(resourceId, parent,
                 false);
     }
-     */
+    */
 }

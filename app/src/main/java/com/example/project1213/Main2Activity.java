@@ -52,7 +52,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
     private FindFragment findFragment;
 
     // 判断是否已登录，若user_login 不为空，则已登录
-    public String user_login = "";
+    public String user_login = "小红";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,7 +213,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
             case LOGIN_ACTIVITY:
                 if (resultCode == RESULT_OK) {
                     user_login = data.getStringExtra("return_username");
-                    Toast.makeText(Main2Activity.this, "Login successfully.",
+                    Toast.makeText(Main2Activity.this, "Welcome " + user_login,
                             Toast.LENGTH_SHORT).show();
                     if (user_login.isEmpty()) {
                         TextView obj=(TextView)findViewById(R.id.my_textView);
