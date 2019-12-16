@@ -24,26 +24,34 @@
         android:visibility="invisible">
         <Button
             android:id="@+id/head"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/tab_find"
-            android:visibility="invisible"/>
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/my_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:textSize="25sp"
             android:text="请登录"
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
             android:layout_weight="1"
             android:singleLine="true"/>
-        <!--log_in-->
+
         <Button
             android:id="@+id/log_in"
-            android:text="Log in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_login2"
+
+            android:gravity="center_horizontal"
             android:visibility="visible"
             />
 
@@ -54,17 +62,19 @@
         android:layout_height="45dp"
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="5dp"
         android:background="#CCCCCC"/>
+
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/find"
             android:text="find"
@@ -74,8 +84,8 @@
             android:button="@null"
             android:gravity="center"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/tab_find"
-            />
+            android:drawableTop="@drawable/tab_find" />
+
         <RadioButton
             android:id="@+id/mine"
             android:text="mine"
@@ -85,8 +95,7 @@
             android:button="@null"
             android:gravity="center"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/tab_mine"
-            />
+            android:drawableTop="@drawable/tab_mine" />
     </RadioGroup>
 
     <LinearLayout

@@ -17,6 +17,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.icu.text.UnicodeSetSpanner;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.view.View;
@@ -34,8 +37,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.litepal.LitePal;
+import org.litepal.tablemanager.Connector;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -108,6 +113,8 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
             }
         });
 
+        // MineListView
+
 
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         radioGroup.setOnCheckedChangeListener(this);
@@ -116,7 +123,6 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
         mine = (RadioButton) findViewById(R.id.mine);
 
         find.setChecked(true);
-
     }
 
     public void hideAllFragment(FragmentTransaction transaction) {
@@ -164,7 +170,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
         }
         transaction.commit();
 
-
+        // Button of login
         Button button_log = (Button) findViewById(R.id.log_in/*to_loginActivity*/);
         button_log.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,6 +180,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
             }
         });
 
+        // Button of test database
         Button button_test = (Button) findViewById(R.id.test_database);
         button_test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +196,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
             }
         });
 
+        // Button to show headshot
         Button button_usr_img = (Button) findViewById(R.id.head/*change_user_image*/);
         button_usr_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,8 +232,17 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                     }
                     //mineFragment.checkLoginButton(user_login);
                     Button loginnn=(Button)findViewById(R.id.log_in);
-                    loginnn.setVisibility(View.INVISIBLE);
+                    loginnn.setVisibility(View.GONE);
+
+                    List<Account> accountList = LitePal
+                            .where("userName == ?", user_login)
+                            .find(Account.class);
+                    Account account = accountList.get(0);
+                    byte[] urim = account.getUserImage();
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(urim, 0, urim.length);
+
                     Button head=(Button)findViewById(R.id.head);
+                    head.setBackgroundDrawable(new BitmapDrawable(bitmap));
                     head.setVisibility(View.VISIBLE);
                 }
                 break;
@@ -305,6 +322,10 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
             Account account = accountList.get(0);
             account.setUserImage(userimg);
             account.save();
+
+            Button head=(Button)findViewById(R.id.head);
+            head.setBackgroundDrawable(new BitmapDrawable(bitmap));
+
             Toast.makeText(this, "Change avatar successfully", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
