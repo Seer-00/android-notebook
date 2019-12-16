@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@drawable/background_reglog">
+    android:background="@drawable/bk_log_in">
 
     <EditText
         android:id="@+id/Reg_user_name"
