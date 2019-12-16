@@ -3,8 +3,10 @@ package com.example.project1213;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         Connector.getDatabase();
 
         List<Account> accountList = LitePal.select("userName").find(Account.class);
@@ -61,6 +64,26 @@ public class MainActivity extends AppCompatActivity {
             createUser_11();
             createUser_12();
         }
+
+        Button TB=(Button)findViewById(R.id.TB);
+        TB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tbPath="https://detail.tmall.com/item.htm?spm=a1z0d.6639537.1997196601.3.45d07484uw9hPZ&id=565570128470";
+                if(checkPackage(tbPath))totianmao(tbPath);
+                else{
+                    Intent intent = new Intent(MainActivity.this,WebView.class);
+                    intent.putExtra("website_address", tbPath);
+                    intent.putExtra("website_name","淘宝");
+                    startActivity(intent);
+                }
+
+                
+            }
+        });
+
+
+
 
     }
 
@@ -500,4 +523,37 @@ public class MainActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
     }
+
+
+    public boolean checkPackage(String packageName)
+    {
+
+        if (packageName == null || "".equals(packageName)) return false;
+        try
+        {
+            this.getPackageManager().getApplicationInfo(packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
+            return true;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            return false;
+        }
+
+    }
+
+    void totianmao( String tbPath){
+        Intent intent = new Intent();
+        intent.setAction("Android.intent.action.VIEW");
+        Uri uri = Uri.parse(tbPath); // 商品地址
+        intent.setData(uri);
+        intent.setClassName("com.taobao.taobao", "com.taobao.tao.detail.activity.DetailActivity");
+        startActivity(intent);
+    }
+
+
+
+
+
+
+
 }
