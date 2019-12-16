@@ -81,7 +81,7 @@ public class AddRecords extends AppCompatActivity {
         Button record_create = (Button) findViewById(R.id.Rec_create);
         final Button record_location = (Button) findViewById(R.id.Rec_location);
         final Button record_clear_location = (Button) findViewById(R.id.Rec_clear_location);
-        record_show_loc = (TextView) findViewById(R.id.Rec_show_location);
+        record_show_loc = (TextView) findViewById(R.id.location);
         final CheckBox use_title = (CheckBox) findViewById(R.id.use_title);
 
         // checkBox of use_title

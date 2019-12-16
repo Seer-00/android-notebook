@@ -77,6 +77,7 @@
                 android:paddingLeft="60dp"
                 android:textSize="18sp"
                 android:layout_weight="1"
+                android:singleLine="true"
                 />
 
             <Button
@@ -161,10 +162,10 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         />
-
+<!--
     <TextView
         android:id="@+id/Rec_show_location"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
 
 </RelativeLayout>
