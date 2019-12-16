@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".About">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".About"
+    android:background="@drawable/about">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/toolbar"
+        android:theme="@style/myTheme"
+        app:title="Traveller"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        ></androidx.appcompat.widget.Toolbar>
+<TextView
+    android:textSize="15sp"
+    android:text="Name: Traveller\n\nVersion: 1.0\n\nDeveloper: 赵焕辉  钟子阳  何熙钒\n\nConstrutor: 张晶"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"/>
+</RelativeLayout>

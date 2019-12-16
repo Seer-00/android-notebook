@@ -25,6 +25,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.view.View;
@@ -115,6 +116,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
         mine = (RadioButton) findViewById(R.id.mine);
 
         find.setChecked(true);
+
     }
 
     public void hideAllFragment(FragmentTransaction transaction) {
@@ -135,26 +137,35 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                 if (findFragment == null) {
                     findFragment = new FindFragment("发现");
                     transaction.add(R.id.fl, findFragment);
+                    LinearLayout user_information=(LinearLayout)findViewById(R.id.user_information);
+                    user_information.setVisibility(View.INVISIBLE);
                 } else {
                     transaction.show(findFragment);
+                    LinearLayout user_information=(LinearLayout)findViewById(R.id.user_information);
+                    user_information.setVisibility(View.INVISIBLE);
                 }
                 break;
             case R.id.mine:
                 if (mineFragment == null) {
                     mineFragment = new MyFragment("我的");
                     transaction.add(R.id.fl, mineFragment);
+                    LinearLayout user_information=(LinearLayout)findViewById(R.id.user_information);
+                    user_information.setVisibility(View.VISIBLE);
+                    //mineFragment.checkLoginButton(user_login);
 
                 } else {
-
-
+                    LinearLayout user_information=(LinearLayout)findViewById(R.id.user_information);
+                    user_information.setVisibility(View.VISIBLE);
+                    //mineFragment.checkLoginButton(user_login);
                     transaction.show(mineFragment);
+
                 }
                 break;
         }
         transaction.commit();
 
 
-        Button button_log = (Button) findViewById(R.id.to_loginActivity);
+        Button button_log = (Button) findViewById(R.id.log_in/*to_loginActivity*/);
         button_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +189,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
             }
         });
 
-        Button button_usr_img = (Button) findViewById(R.id.change_user_image);
+        Button button_usr_img = (Button) findViewById(R.id.head/*change_user_image*/);
         button_usr_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,16 +217,16 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                             Toast.LENGTH_SHORT).show();
                     if (user_login.isEmpty()) {
                         TextView obj=(TextView)findViewById(R.id.my_textView);
-                        obj.setVisibility(View.VISIBLE);
-                        TextView obj2=(TextView)findViewById(R.id.my_textView1);
-                        obj2.setVisibility(View.INVISIBLE);
+                        obj.setText("请登录");
                     } else {
-                        TextView obj1=(TextView)findViewById(R.id.my_textView);
-                        obj1.setVisibility(View.INVISIBLE);
-                        TextView obj2=(TextView)findViewById(R.id.my_textView1);
-                        obj2.setVisibility(View.VISIBLE);
+                        TextView obj=(TextView)findViewById(R.id.my_textView);
+                        obj.setText(user_login);
                     }
-                    mineFragment.checkLoginButton(user_login);
+                    //mineFragment.checkLoginButton(user_login);
+                    Button loginnn=(Button)findViewById(R.id.log_in);
+                    loginnn.setVisibility(View.INVISIBLE);
+                    Button head=(Button)findViewById(R.id.head);
+                    head.setVisibility(View.VISIBLE);
                 }
                 break;
             case CHOOSE_PICTURE:

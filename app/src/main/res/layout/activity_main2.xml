@@ -16,6 +16,38 @@
         app:title="Traveller"
         app:titleTextAppearance="@style/Toolbar.TitleText"
         ></androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/user_information"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible">
+        <Button
+            android:id="@+id/head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/tab_find"
+            android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/my_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="请登录"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:singleLine="true"/>
+        <!--log_in-->
+        <Button
+            android:id="@+id/log_in"
+            android:text="Log in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            />
+
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/fl"
         android:layout_width="wrap_content"
