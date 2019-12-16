@@ -41,7 +41,7 @@
         android:gravity="center"
         android:inputType="textEmailAddress"
         android:layout_centerInParent="true"
-        android:hint="Your E-mail address"/>
+        android:hint="E-mail address"/>
     <TextView
         android:id="@+id/outsideblank"
         android:text=""
@@ -56,10 +56,11 @@
     android:layout_below="@id/outsideblank">
     <Button
         android:id="@+id/Reg_clear_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ClearAll"
-        android:layout_toLeftOf="@id/blank"/>
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:text=""
+        android:layout_toLeftOf="@id/blank"
+        android:background="@drawable/button_clear"/>
     <TextView
         android:id="@+id/blank"
         android:text=""
@@ -68,10 +69,11 @@
         android:layout_centerHorizontal="true"/>
     <Button
         android:id="@+id/Reg_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_toRightOf="@id/blank"/>
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:text=""
+        android:layout_toRightOf="@id/blank"
+        android:background="@drawable/button_submit"/>
 </RelativeLayout>
 
 </RelativeLayout>

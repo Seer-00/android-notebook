@@ -16,10 +16,12 @@ public class ListViewAdapter extends ArrayAdapter<Map>{
         super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
     }
+    /*
     public View getView(int position, View convertView, ViewGroup parent)
     {
         Map map=getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(resourceId, parent,
                 false);
     }
+    */
 }

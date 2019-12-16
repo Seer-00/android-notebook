@@ -27,13 +27,15 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:layout_centerInParent="true" />
-<TextView
-    android:id="@+id/outsideblank"
-    android:text=""
-    android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:layout_below="@id/password"
+
+    <TextView
+        android:id="@+id/outsideblank"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/password"
     />
+
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -43,25 +45,27 @@
 
         <Button
             android:id="@+id/register_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:text=""
             android:layout_toLeftOf="@id/blank"
-        />
+            android:background="@drawable/button_register" />
 
         <TextView
             android:id="@+id/blank"
             android:text=""
-            android:layout_width="50dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"/>
 
+
         <Button
             android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:layout_toRightOf="@id/blank"/>
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:text=""
+            android:layout_toRightOf="@id/blank"
+            android:background="@drawable/button_login"/>
 
     </RelativeLayout>
 

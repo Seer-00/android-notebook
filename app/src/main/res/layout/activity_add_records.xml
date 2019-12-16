@@ -63,7 +63,6 @@
 
         </LinearLayout>
 
-        <!-- show the picture you just got-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,6 +85,12 @@
                 android:layout_height="34dp"
                 android:background="@drawable/location" />
             <Button
+                android:id="@+id/Rec_show_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="show Map"
+                android:visibility="gone"/>
+            <Button
                 android:id="@+id/Rec_clear_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,26 +102,15 @@
 
         <ImageView
             android:id="@+id/picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="160dp"
             android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
             android:maxWidth="300dp"
             android:maxHeight="160dp"
-            android:src="@drawable/add"
-
-
             />
+            <!--android:src="@drawable/add"-->
 
-
-        <!--
-        <ImageView
-            android:id="@+id/Rec_image"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@color/colorPrimary"
-        />-->
 
         <RelativeLayout
             android:orientation="horizontal"
@@ -150,21 +144,21 @@
         </RelativeLayout>
     </LinearLayout>
 
-
-
-
     <Button
         android:id="@+id/Rec_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:text=""
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:background="@drawable/button_create"
+
         />
 
     <TextView
         android:id="@+id/Rec_show_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 
 </RelativeLayout>

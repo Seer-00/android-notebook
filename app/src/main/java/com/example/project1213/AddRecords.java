@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,6 +41,7 @@ import com.baidu.location.LocationClientOption;
 
 import org.litepal.LitePal;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -81,6 +83,7 @@ public class AddRecords extends AppCompatActivity {
         Button record_create = (Button) findViewById(R.id.Rec_create);
         final Button record_location = (Button) findViewById(R.id.Rec_location);
         final Button record_clear_location = (Button) findViewById(R.id.Rec_clear_location);
+        final Button record_show_map = (Button) findViewById(R.id.Rec_show_map);
         record_show_loc = (TextView) findViewById(R.id.Rec_show_location);
         final CheckBox use_title = (CheckBox) findViewById(R.id.use_title);
 
@@ -125,6 +128,7 @@ public class AddRecords extends AppCompatActivity {
                         @Override
                         public void run() {
                             record_location.setVisibility(View.GONE);
+                            record_show_map.setVisibility(View.VISIBLE);
                             record_clear_location.setVisibility(View.VISIBLE);
                         }
                     }, 1500);
@@ -136,6 +140,7 @@ public class AddRecords extends AppCompatActivity {
                         @Override
                         public void run() {
                             record_location.setVisibility(View.GONE);
+                            record_show_map.setVisibility(View.VISIBLE);
                             record_clear_location.setVisibility(View.VISIBLE);
                         }
                     }, 500);
@@ -149,6 +154,15 @@ public class AddRecords extends AppCompatActivity {
             public void onClick(View view) {
                 location = "";
                 record_show_loc.setText(location);
+            }
+        });
+
+        // Button of show Map
+        record_show_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_map = new Intent(AddRecords.this, showMap.class);
+                startActivity(intent_map);
             }
         });
 

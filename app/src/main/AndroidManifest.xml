@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
@@ -25,22 +24,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".WebView"></activity>
-
         <activity android:name=".showMap"></activity>
+        <activity android:name=".WebView" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="94Mq9oeVrb4GnWW3pO9LxW2CqTI2bPkm" />
+
         <activity android:name=".testDatabase" />
         <activity android:name=".About" />
-        <activity android:name=".AddRecords" />
+
+        <activity android:name=".AddRecords" ></activity>
+
         <activity
             android:name=".Main2Activity"
             android:launchMode="singleTask" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" ></activity>
+        <activity android:name=".LoginActivity" >
+
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,7 +64,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" ></service>
+            android:process=":remote" />
     </application>
 
 </manifest>
