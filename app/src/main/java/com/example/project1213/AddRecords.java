@@ -61,6 +61,7 @@ public class AddRecords extends AppCompatActivity {
     private ImageView picture;
     private Uri imageUri;
     private String location;
+    private boolean useTitle = false;
     private boolean getImage = false;
     private boolean getLocation = false;
 
@@ -79,13 +80,16 @@ public class AddRecords extends AppCompatActivity {
 
         final EditText record_text = (EditText) findViewById(R.id.Rec_text);
         final EditText record_title = (EditText) findViewById(R.id.Rec_title);
+        Button take_photo = (Button) findViewById(R.id.Rec_take_photo);
         Button record_choose_pic = (Button) findViewById(R.id.Rec_choose_pic);
+        Button clear_pic = (Button) findViewById(R.id.Rec_clear_pic);
         Button record_create = (Button) findViewById(R.id.Rec_create);
         final Button record_location = (Button) findViewById(R.id.Rec_location);
         final Button record_clear_location = (Button) findViewById(R.id.Rec_clear_location);
 
         final Button record_show_map = (Button) findViewById(R.id.Rec_show_map);
         record_show_loc = (TextView) findViewById(R.id.Rec_show_location);
+        picture = (ImageView) findViewById(R.id.picture);
 
         final CheckBox use_title = (CheckBox) findViewById(R.id.use_title);
 
@@ -95,8 +99,10 @@ public class AddRecords extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (use_title.isChecked()) {
                     record_title.setVisibility(View.VISIBLE);
+                    useTitle = true;
                 } else {
                     record_title.setVisibility(View.INVISIBLE);
+                    useTitle = false;
                 }
             }
         });
@@ -129,8 +135,11 @@ public class AddRecords extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            TextView blank = (TextView)findViewById(R.id.blank_location);
+                            //record_show_loc.setText(location);
                             record_location.setVisibility(View.GONE);
                             record_show_map.setVisibility(View.VISIBLE);
+                            blank.setVisibility(View.VISIBLE);
                             record_clear_location.setVisibility(View.VISIBLE);
                         }
                     }, 1500);
@@ -141,8 +150,11 @@ public class AddRecords extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            TextView blank = (TextView)findViewById(R.id.blank_location);
+                            //record_show_loc.setText(location);
                             record_location.setVisibility(View.GONE);
                             record_show_map.setVisibility(View.VISIBLE);
+                            blank.setVisibility(View.VISIBLE);
                             record_clear_location.setVisibility(View.VISIBLE);
                         }
                     }, 500);
@@ -154,7 +166,12 @@ public class AddRecords extends AppCompatActivity {
         record_clear_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!location.isEmpty()){
+                    Toast.makeText(AddRecords.this, "Clear location",
+                            Toast.LENGTH_SHORT).show();
+                }
                 location = "";
+                getLocation = false;
                 record_show_loc.setText(location);
             }
         });
@@ -168,24 +185,7 @@ public class AddRecords extends AppCompatActivity {
             }
         });
 
-        // Button of choose a Picture
-        record_choose_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(AddRecords.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.
-                        PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(AddRecords.this, new
-                            String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                } else {
-                    openAlbum();
-                }
-            }
-        });
-
         // Button of take a Photo
-        Button take_photo = (Button) findViewById(R.id.Rec_take_photo);
-        picture = (ImageView) findViewById(R.id.picture);
         take_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,6 +212,36 @@ public class AddRecords extends AppCompatActivity {
             }
         });
 
+        // Button of clear picture
+        clear_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getImage){
+                    Toast.makeText(AddRecords.this, "Clear image",
+                            Toast.LENGTH_SHORT).show();
+                }
+                getImage = false;
+                picture.setImageBitmap(null);
+            }
+        });
+
+        // Button of choose a Picture
+        record_choose_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(AddRecords.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.
+                        PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(AddRecords.this, new
+                            String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                } else {
+                    openAlbum();
+                }
+            }
+        });
+
+
+
         // Button of Create
         record_create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,9 +261,14 @@ public class AddRecords extends AppCompatActivity {
                 }
 
                 Record record = new Record();
+                if(useTitle){
+                    record.setRecordTitle(title);
+                }
+
                 record.setRecordText(text);
-                record.setRecordTitle(title);
+
                 record.setRecordDate(date);
+
                 if(getLocation){
                     record.setRecordLocation(location);
                 }

@@ -1,8 +1,12 @@
 package com.example.project1213;
 
+import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
 
-public class Record extends LitePalSupport {
+import java.io.Serializable;
+import java.util.List;
+
+public class Record extends LitePalSupport implements Serializable {
 
     private int id;
 
@@ -73,4 +77,18 @@ public class Record extends LitePalSupport {
     public void setAccount(Account account) {
         this.account = account;
     }
+    /*
+    public Account getAccount() {
+        //子表中会生成一个关联父表的id供父表查询，且字表中id生成符合规则："父表类名小写_id"
+        //若父表为Person类(父表中会自动生成一个id自增列)，子表为User类,则字表中会自动生成字段person_id对应父表中id，以供查询
+        String linkId = this.getClass().getSimpleName().toLowerCase();
+        List<Account> list= LitePal.where(linkId+"_id=?",String.valueOf(id)).find(Account.class);
+        if(CollectionUtil.isEmpty(list)){
+            user= null;
+        }else{
+            user=list.get(0);
+        }
+        return user;
+    }
+    */
 }

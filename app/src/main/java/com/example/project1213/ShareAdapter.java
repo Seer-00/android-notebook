@@ -29,30 +29,41 @@ public class ShareAdapter extends ArrayAdapter<Account> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Account account = getItem(position);
-        View view= LayoutInflater.from(getContext()).inflate(resourceId, parent,false);
+        View view;
+        if(convertView == null) {
+            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+        }
+        else{
+            view = convertView;
+        }
 
         List<Record> recordList = account.getRecordList();
         Record record = recordList.get(0);
 
         // set UserImage
         byte[] urim = account.getUserImage();
-        ImageView image=(ImageView)view.findViewById(R.id.image);
+        ImageView image=(ImageView) view.findViewById(R.id.find_listview_head);
         Bitmap bitmap = BitmapFactory.decodeByteArray(urim, 0, urim.length);
         image.setImageBitmap(bitmap);
 
+        // set username
+        TextView username=(TextView)view.findViewById(R.id.find_listview_nickname);
+        String un = account.getUserName();
+        username.setText(un);
+
         // set title
-        TextView title=(TextView)view.findViewById(R.id.title);
-        String rc_title = record.getRecordTitle();
-        title.setText(rc_title);
+        TextView title=(TextView) view.findViewById(R.id.find_listview_title);
+        String re_title = record.getRecordTitle();
+        title.setText(re_title);
 
         // set text
-        TextView summary=(TextView)view.findViewById(R.id.info);
+        TextView text = (TextView) view.findViewById(R.id.find_listview_text);
         String re_text = record.getRecordText();
-        summary.setText(re_text);
+        text.setText(re_text);
 
         // set date
-        TextView date=(TextView)view.findViewById(R.id.my_listview_date);
-        String rc_date = record.getRecordDate();
+        TextView date=(TextView)view.findViewById(R.id.find_listview_date);
+        String rc_date = record.getRecordDate().substring(0, 11);
         date.setText(rc_date);
 
         return view;

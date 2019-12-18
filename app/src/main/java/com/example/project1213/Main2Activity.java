@@ -27,12 +27,14 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,17 +46,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Main2Activity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class Main2Activity extends AppCompatActivity {
 
     private static final String TAG = "Main2Activity";
 
     public static final int LOGIN_ACTIVITY = 1;
     public static final int CHOOSE_PICTURE = 2;
+    public static final int ADD_RECORD = 3;
 
-    private RadioGroup radioGroup;
-    private RadioButton find, mine;
-    private MyFragment mineFragment;
-    private FindFragment findFragment;
+    private RecordAdapter recordAdapter;
+    private Account account;
+    private List<Record> recordList;
+    private ListView listView;
+    private RelativeLayout relativeLayout;
 
     // 判断是否已登录，若user_login 不为空，则已登录
     public String user_login = "小红";
@@ -63,6 +67,8 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        listView = (ListView) findViewById(R.id.mine_list_view);
+        relativeLayout = (RelativeLayout) findViewById(R.id.show_none_record);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Traveller");
         toolbar.inflateMenu(R.menu.operation);
@@ -77,7 +83,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                         } else {
                             Intent intent = new Intent(Main2Activity.this, AddRecords.class);
                             intent.putExtra("user_login", user_login);
-                            startActivity(intent);
+                            startActivityForResult(intent, 3);
                         }
                         break;
                     case R.id.tuniu:
@@ -114,85 +120,30 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
         });
 
         // MineListView
+        createListView();
 
+        // Click item of ListView
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(recordList != null){
+                    Record record = recordList.get(position);
 
-        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
-        radioGroup.setOnCheckedChangeListener(this);
-
-        find = (RadioButton) findViewById(R.id.find);
-        mine = (RadioButton) findViewById(R.id.mine);
-
-        find.setChecked(true);
-    }
-
-    public void hideAllFragment(FragmentTransaction transaction) {
-        if (findFragment != null) {
-            transaction.hide(findFragment);
-        }
-        if (mineFragment != null) {
-            transaction.hide(mineFragment);
-        }
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        hideAllFragment(transaction);
-        switch (checkedId) {
-            case R.id.find:
-                if (findFragment == null) {
-                    findFragment = new FindFragment("发现");
-                    transaction.add(R.id.fl, findFragment);
-                    LinearLayout user_information=(LinearLayout)findViewById(R.id.user_information);
-                    user_information.setVisibility(View.INVISIBLE);
-                } else {
-                    transaction.show(findFragment);
-                    LinearLayout user_information=(LinearLayout)findViewById(R.id.user_information);
-                    user_information.setVisibility(View.INVISIBLE);
+                    Intent intent = new Intent(Main2Activity.this, ShowRecordActivity.class);
+                    intent.putExtra("click_rec", record);
+                    intent.putExtra("id", 0);
+                    startActivity(intent);
                 }
-                break;
-            case R.id.mine:
-                if (mineFragment == null) {
-                    mineFragment = new MyFragment("我的");
-                    transaction.add(R.id.fl, mineFragment);
-                    LinearLayout user_information=(LinearLayout)findViewById(R.id.user_information);
-                    user_information.setVisibility(View.VISIBLE);
-                    //mineFragment.checkLoginButton(user_login);
+            }
+        });
 
-                } else {
-                    LinearLayout user_information=(LinearLayout)findViewById(R.id.user_information);
-                    user_information.setVisibility(View.VISIBLE);
-                    //mineFragment.checkLoginButton(user_login);
-                    transaction.show(mineFragment);
-
-                }
-                break;
-        }
-        transaction.commit();
-
-        // Button of login
-        Button button_log = (Button) findViewById(R.id.log_in/*to_loginActivity*/);
+                // Button of login
+                Button button_log = (Button) findViewById(R.id.log_in/*to_loginActivity*/);
         button_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Main2Activity.this, LoginActivity.class);
                 startActivityForResult(intent, LOGIN_ACTIVITY);
-            }
-        });
-
-        // Button of test database
-        Button button_test = (Button) findViewById(R.id.test_database);
-        button_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (user_login.isEmpty()) {
-                    Toast.makeText(Main2Activity.this, "Please login first",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Intent intent = new Intent(Main2Activity.this, testDatabase.class);
-                    intent.putExtra("test_user", user_login);
-                    startActivity(intent);
-                }
             }
         });
 
@@ -211,7 +162,31 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                 }
             }
         });
+    }
 
+    private void createListView() {
+        if(!user_login.isEmpty()){
+            List<Account> accountList = LitePal.where("userName == ?", user_login)
+                    .find(Account.class, true);
+
+            // 得到 user_login 对应的 account
+            account = accountList.get(0);
+
+            recordList = account.getRecordList();
+            Log.d(TAG, "onCreate: " + user_login + " has " + recordList.size() + " records.");
+
+            if(recordList.size() == 0){
+                listView.setVisibility(View.GONE);
+                relativeLayout.setVisibility(View.VISIBLE);
+                return;
+            }
+
+            recordAdapter = new RecordAdapter(Main2Activity.this,
+                    R.layout.my_listview_item, recordList);
+            listView.setAdapter(recordAdapter);
+            listView.setVisibility(View.VISIBLE);
+            relativeLayout.setVisibility(View.GONE);
+        }
     }
 
 
@@ -221,8 +196,9 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
             case LOGIN_ACTIVITY:
                 if (resultCode == RESULT_OK) {
                     user_login = data.getStringExtra("return_username");
+                    createListView();
                     Toast.makeText(Main2Activity.this, "Welcome " + user_login,
-                            Toast.LENGTH_SHORT).show();
+                            Toast.LENGTH_LONG).show();
                     if (user_login.isEmpty()) {
                         TextView obj=(TextView)findViewById(R.id.my_textView);
                         obj.setText("请登录");
@@ -230,7 +206,7 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                         TextView obj=(TextView)findViewById(R.id.my_textView);
                         obj.setText(user_login);
                     }
-                    //mineFragment.checkLoginButton(user_login);
+
                     Button loginnn=(Button)findViewById(R.id.log_in);
                     loginnn.setVisibility(View.GONE);
 
@@ -258,6 +234,8 @@ public class Main2Activity extends AppCompatActivity implements RadioGroup.OnChe
                     }
                 }
                 break;
+            case ADD_RECORD:
+                createListView();
             default:
                 break;
         }

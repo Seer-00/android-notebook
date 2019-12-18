@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,20 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
+    private boolean initDatabase = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button button2 = (Button) findViewById(R.id.to_Main2Activity);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                startActivity(intent);
-            }
-        });
-
+        Button skip = (Button)findViewById(R.id.to_skip);
+        Button TB = (Button)findViewById(R.id.TB);
 
         Connector.getDatabase();
 
@@ -63,13 +58,30 @@ public class MainActivity extends AppCompatActivity {
             createUser_10();
             createUser_11();
             createUser_12();
+            initDatabase = true;
+            skip.setVisibility(View.VISIBLE);
+        }
+        else{
+            skip.setVisibility(View.VISIBLE);
         }
 
-        Button TB=(Button)findViewById(R.id.TB);
+        // Button of skip
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SkipActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+
+        // Button to Taobao
         TB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String tbPath="https://detail.tmall.com/item.htm?spm=a1z0d.6639537.1997196601.3.45d07484uw9hPZ&id=565570128470";
+                String tbPath="https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.6.1f7a30aeWnGNjY&id=548774633339&skuId=4611686567202021243&standard=1&user_id=2041592426&cat_id=2&is_b=1&rn=afe1065807d473a20804abaa87bc88df";
                 if(checkPackage(tbPath))totianmao(tbPath);
                 else{
                     Intent intent = new Intent(MainActivity.this,WebView.class);
@@ -77,13 +89,20 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("website_name","淘宝");
                     startActivity(intent);
                 }
-
-                
             }
         });
 
-
-
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(initDatabase){
+                    Intent intent = new Intent(MainActivity.this, SkipActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        }, 12000);
 
     }
 
@@ -94,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         String rec_text = "今天终于来到了丹霞山，广东第一峰果然名不虚传呀！虽然不算很高，但也能感受到云雾缭绕的感觉，真是太棒了！";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_1)).getBitmap();
@@ -129,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 "著名作家朱千华先生在园林文化随笔集《雨打芭蕉落闲庭·岭南画舫录》中，对顺德“清晖园”有详尽描述。";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_2)).getBitmap();
@@ -163,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 "一望无际的山峦。真是太美了——很多人都没去的——就是太危了。";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_3)).getBitmap();
@@ -200,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 "回民街的是不能比的，6619的司机师傅开车很稳当，一次满意行程";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_4)).getBitmap();
@@ -235,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
                 "唯游客如织少了一分宁静之美⋯⋯";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_5)).getBitmap();
@@ -272,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
                 "如果一定想去玩的话，请工作日去，很多游戏项目只需要排队10分钟。";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_6)).getBitmap();
@@ -308,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
                 "这里地方很大，一天也未必能够走得远全园。";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_7)).getBitmap();
@@ -342,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
                 "冰雪大世界真的很美值得大家来，适合跨年哦。";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_8)).getBitmap();
@@ -377,7 +396,7 @@ public class MainActivity extends AppCompatActivity {
                 "洛阳天天旅行社的小张。讲解风趣幽默，文采过人！";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_9)).getBitmap();
@@ -417,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
                 "失望，希望故宫的管理层早点看见这些问题，尽早止损，不然故宫作为中国招待世界的第一张面孔，实在有些贻笑大方。";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_10)).getBitmap();
@@ -453,7 +472,7 @@ public class MainActivity extends AppCompatActivity {
                 "旁及西夏回鹘 不同时期各自的风格 不虚此行";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_11)).getBitmap();
@@ -482,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
     public void createUser_12(){
         String usr_n = "小红薯";
         String usr_p = "";
-        String rec_title = "来西藏去布达拉宫是第一件事";
+        String rec_title = "来西藏，去布达拉宫是第一件事";
         String rec_text = "布达拉宫（藏语拼音：bo da la，威利：po ta la），" +
                 "坐落于中国西藏自治区的首府拉萨市区西北玛布日山上，是世界上海拔最高，" +
                 "集宫殿、城堡和寺院于一体的宏伟建筑，也是西藏最庞大、最完整的古代宫堡建筑群。 " +
@@ -491,7 +510,7 @@ public class MainActivity extends AppCompatActivity {
                 "主体建筑分为白宫和红宫两部分。宫殿高200余米，外观13层，内为9层。";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*604800));
+        Date curDate = new Date(System.currentTimeMillis() - (int)(Math.random()*2678400000L));
         String date = formatter.format(curDate);
 
         Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.headshot_12)).getBitmap();
@@ -541,7 +560,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void totianmao( String tbPath){
+    void totianmao(String tbPath){
         Intent intent = new Intent();
         intent.setAction("Android.intent.action.VIEW");
         Uri uri = Uri.parse(tbPath); // 商品地址
@@ -549,11 +568,5 @@ public class MainActivity extends AppCompatActivity {
         intent.setClassName("com.taobao.taobao", "com.taobao.tao.detail.activity.DetailActivity");
         startActivity(intent);
     }
-
-
-
-
-
-
 
 }

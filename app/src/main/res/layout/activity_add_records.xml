@@ -2,177 +2,215 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddRecords"
     android:background="@drawable/bk_add">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
+
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/toolbar"
             android:theme="@style/myTheme"
             app:title="Traveller"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            ></androidx.appcompat.widget.Toolbar>
+            app:titleTextAppearance="@style/Toolbar.TitleText">
+        </androidx.appcompat.widget.Toolbar>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_heightPercnt="30%">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
                 <CheckBox
                     android:id="@+id/use_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    android:layout_gravity="center_vertical"/>
+
                 <TextView
                     android:id="@+id/tab_use_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:textSize="18sp"
-                    android:text="Use title"
-                    />
+                    android:text="Use title"/>
+
                 <EditText
                     android:id="@+id/Rec_title"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="title"
                     android:visibility="invisible"
                     android:singleLine="true"
                     android:inputType="text"
                     android:layout_weight="1"
+                    android:gravity="center"
                     />
 
             </LinearLayout>
-            <EditText
-                android:id="@+id/Rec_text"
-                android:layout_width="300dp"
-                android:layout_height="130dp"
-                android:gravity="top"
-                android:maxLines="5"
-                android:layout_gravity="center_horizontal"
-                />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="130dp"/>
+                <EditText
+                    android:id="@+id/Rec_text"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:gravity="top"
+                    android:maxLines="5"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="5"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-
-        <RelativeLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp">
+
             <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
+                android:layout_width="62dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/Rec_show_location"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:singleLine="true"
-                android:text="Location:"
-                android:textSize="18sp" />
+                />
+
             <Button
                 android:id="@+id/Rec_show_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="show Map"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:visibility="gone"
-                android:layout_toLeftOf="@id/Rec_clear_location"
+                android:background="@drawable/button_show_map"
                 />
+
+            <TextView
+                android:id="@+id/blank_location"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
             <Button
                 android:id="@+id/Rec_clear_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clear Location"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:visibility="gone"
-                android:layout_alignParentRight="true"
+                android:background="@drawable/button_clear_location"
                 />
 
             <Button
                 android:id="@+id/Rec_location"
-                android:layout_width="100dp"
-                android:layout_height="34dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/location" />
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:visibility="visible"
+                android:background="@drawable/button_get_location" />
 
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0"
+                android:adjustViewBounds="true"
+                android:maxWidth="200dp"
+                android:maxHeight="200dp" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/Rec_take_photo"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/take_photos" />
+
+                <Button
+                    android:id="@+id/Rec_choose_pic"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/add_your_photos" />
+
+                <Button
+                    android:id="@+id/Rec_clear_pic"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/button_clear_pic"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/Rec_create"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_create"
+                android:text="" />
         </RelativeLayout>
-
-<LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_heightPercnt="30%">
-    <ImageView
-        android:id="@+id/picture"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:adjustViewBounds="true"
-        android:maxWidth="300dp"
-        android:maxHeight="200dp"
-        />
-    <!--android:src="@drawable/add"-->
-
-
-    <RelativeLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <!-- choose a picture-->
-        <!--
-                    <TextView
-                        android:id="@+id/tab_blank"
-                        android:text=""
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"/>-->
-
-
-        <!-- take a photo-->
-
-        <Button
-            android:id="@+id/Rec_choose_pic"
-            android:layout_width="100dp"
-            android:layout_height="34dp"
-            android:layout_alignParentRight="true"
-android:layout_marginTop="10dp"
-            android:background="@drawable/add_your_photos" />
-
-        <Button
-            android:id="@+id/Rec_take_photo"
-            android:layout_width="100dp"
-            android:layout_height="34dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="70dp"
-            android:background="@drawable/take_photos" />
-        <Button
-            android:id="@+id/Rec_create"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:text=""
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button_create"
-
-            />
-    </RelativeLayout>
-</LinearLayout>
-
-
-    </LinearLayout>
-
-
-
-    <TextView
-        android:id="@+id/Rec_show_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 
 </LinearLayout>

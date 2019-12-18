@@ -7,15 +7,17 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/to_Main2Activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Main2Activity"/>
-    <Button
         android:id="@+id/TB"
         android:text="TB TB TB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
+
+    <Button
+        android:id="@+id/to_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skip"
+        android:visibility="invisible"/>
 
 </LinearLayout>

@@ -23,15 +23,43 @@ public class RecordAdapter extends ArrayAdapter<Record>{
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            Record record=getItem(position);
-            View view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
-            TextView title=(TextView)view.findViewById(R.id.my_listview_title);
-            TextView summary=(TextView)view.findViewById(R.id.my_listview_summary);
-            TextView date=(TextView)view.findViewById(R.id.my_listview_date);
-            title.setText(record.getRecordTitle());
-            summary.setText(record.getRecordText());
-            date.setText(record.getRecordDate());
-            return view;
+            Record record = getItem(position);
+            View view;
+            ViewHolder viewHolder;
+            if(convertView == null) {
+                view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+                viewHolder = new ViewHolder();
 
+                viewHolder.title =( TextView)view.findViewById(R.id.my_listview_title);
+                viewHolder.summary = (TextView)view.findViewById(R.id.my_listview_summary);
+                viewHolder.date = (TextView)view.findViewById(R.id.my_listview_date);
+
+                view.setTag(viewHolder); // 将ViewHolder存储在View中
+            }
+            else{
+                view = convertView;
+                viewHolder = (ViewHolder) view.getTag();
+            }
+
+            String record_title = record.getRecordTitle();
+            if(record_title == null){
+                viewHolder.title.setText(R.string.no_title);
+            }
+            else {
+                viewHolder.title.setText(record.getRecordTitle());
+            }
+
+            viewHolder.summary.setText(record.getRecordText());
+            viewHolder.date.setText(record.getRecordDate().substring(0, 11));
+            return view;
+        }
+
+        class ViewHolder{
+
+            TextView title;
+
+            TextView summary;
+
+            TextView date;
         }
 }

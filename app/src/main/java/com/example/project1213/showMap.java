@@ -28,7 +28,7 @@ import java.util.List;
 
 public class showMap extends AppCompatActivity {
 
-    private static final String TAG = "showMap";
+    private static final String TAG = "showmap";
 
     private MapView mapView;
     public LocationClient mLocationClient;

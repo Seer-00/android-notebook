@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="55dp"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
     >
-<TextView
+    <TextView
     android:text=""
     android:id="@+id/my_listview_blank"
     android:layout_width="1dp"
     android:layout_height="50dp"/>
+
     <TextView
         android:text="title"
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:id="@+id/my_listview_title"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
+        android:layout_marginBottom="3dp"
         android:layout_toRightOf="@+id/my_listview_blank"
         android:layout_toEndOf="@+id/my_listview_blank"
-        android:textSize="14sp"
-        android:maxLines="1"
-        >
-    </TextView>
+        android:textSize="16sp"
+        android:maxLines="1"/>
+
     <TextView
         android:text="summary"
         android:layout_width="300dp"
@@ -34,12 +36,11 @@
         android:layout_toEndOf="@+id/my_listview_blank"
         android:textSize="12sp"
         android:singleLine="true"
-        android:maxLines="1"
-        >
-    </TextView>
+        android:maxLines="1"/>
+
     <TextView
         android:text="date"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/my_listview_date"
         android:layout_marginTop="5dp"
@@ -47,9 +48,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:gravity="right"
-        android:singleLine="true"
-        >
-    </TextView>
-
+        android:singleLine="true"/>
 
 </RelativeLayout>
