@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -18,7 +17,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.icu.text.UnicodeSetSpanner;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,10 +26,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -39,10 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.litepal.LitePal;
-import org.litepal.tablemanager.Connector;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,7 +54,7 @@ public class Main2Activity extends AppCompatActivity {
     private RelativeLayout relativeLayout;
 
     // 判断是否已登录，若user_login 不为空，则已登录
-    public String user_login = "小红";
+    public String user_login = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,16 +122,15 @@ public class Main2Activity extends AppCompatActivity {
                 if(recordList != null){
                     Record record = recordList.get(position);
 
-                    Intent intent = new Intent(Main2Activity.this, ShowRecordActivity.class);
+                    Intent intent = new Intent(Main2Activity.this, MineShowRecordActivity.class);
                     intent.putExtra("click_rec", record);
-                    intent.putExtra("id", 0);
                     startActivity(intent);
                 }
             }
         });
 
-                // Button of login
-                Button button_log = (Button) findViewById(R.id.log_in/*to_loginActivity*/);
+        // Button of login
+        Button button_log = (Button) findViewById(R.id.log_in/*to_loginActivity*/);
         button_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,6 +181,11 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        createListView();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

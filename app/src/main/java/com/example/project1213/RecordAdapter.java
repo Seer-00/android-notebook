@@ -42,7 +42,7 @@ public class RecordAdapter extends ArrayAdapter<Record>{
             }
 
             String record_title = record.getRecordTitle();
-            if(record_title == null){
+            if(record_title.isEmpty()){
                 viewHolder.title.setText(R.string.no_title);
             }
             else {

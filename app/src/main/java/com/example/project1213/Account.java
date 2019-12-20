@@ -2,10 +2,11 @@ package com.example.project1213;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Account extends LitePalSupport {
+public class Account extends LitePalSupport implements Serializable {
     private int id;
 
     private String userName;

@@ -31,6 +31,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,9 @@ public class AddRecords extends AppCompatActivity {
     private boolean useTitle = false;
     private boolean getImage = false;
     private boolean getLocation = false;
+    private boolean recordHasLoc = false;
+
+    private int recordId;
 
     public TextView record_show_loc;
 
@@ -76,7 +80,7 @@ public class AddRecords extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String user_login = intent.getStringExtra("user_login");
-
+        recordId = intent.getIntExtra("record_id", 0);
 
         final EditText record_text = (EditText) findViewById(R.id.Rec_text);
         final EditText record_title = (EditText) findViewById(R.id.Rec_title);
@@ -93,6 +97,43 @@ public class AddRecords extends AppCompatActivity {
 
         final CheckBox use_title = (CheckBox) findViewById(R.id.use_title);
 
+        // update record
+        if(recordId != 0){
+            LinearLayout loc_layout = (LinearLayout) findViewById(R.id.Add_location_layout);
+            loc_layout.setVisibility(View.GONE);
+
+            Record record = LitePal.find(Record.class, recordId);
+            String rec_title = record.getRecordTitle();
+            String rec_text = record.getRecordText();
+            String rec_loc = record.getRecordLocation();
+
+            if(!rec_title.isEmpty()){
+                use_title.setChecked(true);
+                useTitle = true;
+                record_title.setVisibility(View.VISIBLE);
+                record_title.setText(rec_title);
+            }
+
+            record_text.setText(rec_text);
+
+            if(rec_loc.isEmpty()){
+                recordHasLoc = false;
+            }
+            else {
+                recordHasLoc = true;
+            }
+
+            byte[] im = record.getRecordImage();
+            if (im != null && im.length != 0) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(im, 0, im.length);
+                picture.setImageBitmap(bitmap);
+                getImage = true;
+            }
+            else {
+                getImage = false;
+            }
+        }
+
         // checkBox of use_title
         use_title.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -102,6 +143,7 @@ public class AddRecords extends AppCompatActivity {
                     useTitle = true;
                 } else {
                     record_title.setVisibility(View.INVISIBLE);
+                    record_title.setText("");
                     useTitle = false;
                 }
             }
@@ -247,62 +289,108 @@ public class AddRecords extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-                Date curDate = new Date(System.currentTimeMillis());
+                // update record
+                if(recordId != 0){
+                    String up_text = record_text.getText().toString();
+                    String up_title = record_title.getText().toString();
 
-                String date = formatter.format(curDate);
-                String text = record_text.getText().toString();
-                String title = record_title.getText().toString();
+                    if (up_text.isEmpty() && (up_title.isEmpty()||!useTitle) && !getImage && !recordHasLoc) {
+                        Toast.makeText(AddRecords.this, "Not allowed to be ALL EMPTY.",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                if (text.isEmpty() && title.isEmpty() && !getImage && !getLocation) {
-                    Toast.makeText(AddRecords.this, "Not allowed to be ALL EMPTY.",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                    Record updateRec = new Record();
+                    if(useTitle) {
+                        updateRec.setRecordTitle(up_title);
+                    }
+                    else {
+                        updateRec.setRecordTitle("");
+                    }
 
-                Record record = new Record();
-                if(useTitle){
-                    record.setRecordTitle(title);
-                }
+                    updateRec.setRecordText(up_text);
 
-                record.setRecordText(text);
+                    if(getImage) {
+                        picture.setDrawingCacheEnabled(true);
+                        Bitmap bitmap = picture.getDrawingCache();
+                        byte[] image = img(bitmap);
+                        updateRec.setRecordImage(image);
+                        picture.setDrawingCacheEnabled(false);
+                    }
+                    else {
+                        updateRec.setRecordImage(null);
+                    }
 
-                record.setRecordDate(date);
+                    updateRec.update(recordId);
 
-                if(getLocation){
-                    record.setRecordLocation(location);
-                }
-                if(getImage) {
-                    picture.setDrawingCacheEnabled(true);
-                    Bitmap bitmap = picture.getDrawingCache();
-                    byte[] image = img(bitmap);
-                    record.setRecordImage(image);
-                    picture.setDrawingCacheEnabled(false);
-                }
-
-                boolean record_save = record.save();
-
-                List<Account> accountList = LitePal
-                        .where("userName == ?", user_login)
-                        .find(Account.class);
-
-                if (accountList.size() != 1) {
-                    Toast.makeText(AddRecords.this, "Account database error",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Account account = accountList.get(0);
-                account.getRecordList().add(record);
-                boolean account_upgrade = account.save();
-
-                if (record_save && account_upgrade) {
-                    Toast.makeText(AddRecords.this, "Add record successfully.",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRecords.this, "Update record successfully.",
+                                Toast.LENGTH_SHORT).show();
                     finish();
-                } else {
-                    Toast.makeText(AddRecords.this,
-                            "Add record FAILED for unknown reason.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // add record
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
+                    Date curDate = new Date(System.currentTimeMillis());
+
+                    String date = formatter.format(curDate);
+                    String text = record_text.getText().toString();
+                    String title = record_title.getText().toString();
+
+                    if (text.isEmpty() && title.isEmpty() && !getImage && !getLocation) {
+                        Toast.makeText(AddRecords.this, "Not allowed to be ALL EMPTY.",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Record record = new Record();
+                    if (useTitle) {
+                        record.setRecordTitle(title);
+                    } else {
+                        record.setRecordTitle("");
+                    }
+
+                    record.setRecordText(text);
+
+                    record.setRecordDate(date);
+
+                    if (getLocation) {
+                        record.setRecordLocation(location);
+                    }
+                    else {
+                        record.setRecordLocation("");
+                    }
+                    if (getImage) {
+                        picture.setDrawingCacheEnabled(true);
+                        Bitmap bitmap = picture.getDrawingCache();
+                        byte[] image = img(bitmap);
+                        record.setRecordImage(image);
+                        picture.setDrawingCacheEnabled(false);
+                    }
+
+                    boolean record_save = record.save();
+
+                    List<Account> accountList = LitePal
+                            .where("userName == ?", user_login)
+                            .find(Account.class);
+
+                    if (accountList.size() != 1) {
+                        Toast.makeText(AddRecords.this, "Account database error",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Account account = accountList.get(0);
+                    account.getRecordList().add(record);
+                    boolean account_upgrade = account.save();
+
+                    if (record_save && account_upgrade) {
+                        Toast.makeText(AddRecords.this, "Add record successfully.",
+                                Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(AddRecords.this,
+                                "Add record FAILED for unknown reason.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -472,7 +560,7 @@ public class AddRecords extends AppCompatActivity {
                     currentPosition.append(loc.getProvince()).append(" ");
                     currentPosition.append(loc.getCity()).append(" ");
                     currentPosition.append(loc.getDistrict()).append(" ");
-                    currentPosition.append(loc.getStreet()).append(" ");
+                    currentPosition.append(loc.getStreet());
                     /*
                     currentPosition.append("定位方式：");
                     if (location.getLocType() == BDLocation.TypeGpsLocation) {
@@ -481,8 +569,15 @@ public class AddRecords extends AppCompatActivity {
                         currentPosition.append("网络");
                     }
                     */
-                    record_show_loc.setText(currentPosition);
-                    location += currentPosition;
+                    String null_location = "null null null null";
+                    if(null_location.equals(currentPosition + "")){
+                        location = "定位失败";
+                        getLocation = false;
+                    }
+                    else {
+                        location = currentPosition.toString();
+                    }
+                    record_show_loc.setText(location);
                 }
             });
         }

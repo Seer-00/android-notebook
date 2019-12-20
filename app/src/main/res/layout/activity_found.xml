@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/toolbar"
+        android:id="@+id/find_toolbar"
         android:theme="@style/myTheme"
         app:title="Traveller"
         app:titleTextAppearance="@style/Toolbar.TitleText">

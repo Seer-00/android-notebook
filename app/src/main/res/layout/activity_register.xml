@@ -8,6 +8,15 @@
     tools:context=".RegisterActivity"
     android:background="@drawable/bk_log_in">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/toolbar"
+        android:theme="@style/myTheme"
+        app:title="Register"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        ></androidx.appcompat.widget.Toolbar>
+
     <EditText
         android:id="@+id/Reg_user_name"
         android:layout_width="270dp"

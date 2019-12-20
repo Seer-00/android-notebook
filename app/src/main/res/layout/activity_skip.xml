@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SkipActivity">
+    tools:context=".SkipActivity"
+    android:background="@drawable/skip_bg">
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,21 +14,20 @@
         android:layout_centerInParent="true">
 
         <Button
-            android:id="@+id/to_Main2Activity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的"/>
+            android:id="@+id/to_foundActivity"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_skip_1"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp" />
-
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+        
         <Button
-            android:id="@+id/to_foundActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="发现"/>
-
+            android:id="@+id/to_Main2Activity"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_skip_2"/>
 
     </LinearLayout>
 

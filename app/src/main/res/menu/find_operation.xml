@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title=". . ."
+        android:id="@+id/operation"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:title="途牛旅游网"
+                android:id="@+id/f_tuniu"
+                app:showAsAction="never"
+                />
+            <item
+                android:title="携程"
+                android:id="@+id/f_xiecheng"
+                app:showAsAction="never"
+                />
+            <item
+                android:title="去哪儿"
+                android:id="@+id/f_qunaer"
+                app:showAsAction="never"
+                />
+            <item
+                android:title="马蜂窝"
+                android:id="@+id/f_mafengwo"
+                app:showAsAction="never"
+                />
+            <item
+                android:title="关于"
+                android:id="@+id/f_about"
+                app:showAsAction="never">
+            </item>
+        </menu>
+    </item>
+</menu>

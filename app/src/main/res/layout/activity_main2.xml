@@ -48,8 +48,8 @@
 
         <Button
             android:id="@+id/log_in"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="20dp"
             android:background="@drawable/button_login2"
@@ -72,13 +72,14 @@
         android:id="@+id/show_none_record"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_weight="4"
+        android:layout_marginBottom="60dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="None Record"
+            android:text="No Record"
             android:textSize="22sp" />
 
     </RelativeLayout>

@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private boolean initDatabase = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
 
+        final Handler handler1 = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, SkipActivity.class);
+                startActivity(intent);
+                finish();
+                //handler1.postDelayed(this, 10000);
+            }
+        };
+        handler1.postDelayed(runnable, 10000);
+
         if(accountList != null && accountList.size() == 0) {
             createUser_1();
             createUser_2();
@@ -58,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             createUser_10();
             createUser_11();
             createUser_12();
-            initDatabase = true;
             skip.setVisibility(View.VISIBLE);
         }
         else{
@@ -72,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SkipActivity.class);
                 startActivity(intent);
                 finish();
+                handler1.removeCallbacks(runnable);
             }
         });
 
@@ -88,21 +98,10 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("website_address", tbPath);
                     intent.putExtra("website_name","淘宝");
                     startActivity(intent);
+                    handler1.removeCallbacks(runnable);
                 }
             }
         });
-
-        Handler handler1 = new Handler();
-        handler1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(initDatabase){
-                    Intent intent = new Intent(MainActivity.this, SkipActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        }, 12000);
 
     }
 
